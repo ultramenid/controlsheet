@@ -14,13 +14,13 @@
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <input class="sm:w-52 w-full mb-4 py-2 border-gray-500 border px-2 focus:outline-none" wire:model='search'>
+        <input class="sm:w-52 w-full mb-4 py-2 border-gray-500 border px-2 focus:outline-none" wire:model.live='search'>
     </div>
     <div class="">
         <table class="w-full divide-y divide-gray-200  rounded-lg  border border-gray-100">
             <thead class="">
                 <tr >
-                    <th wire:click='sortingField("tahun")'  class="bg-gray-50 px-6 py-4    text-left text-xs font-medium text-gray-500 uppercase tracking-wider  sm:w-3/12 w-4/12">
+                    <th wire:click='sortingField("name")'  class="bg-gray-50 px-6 py-4    text-left text-xs font-medium text-gray-500 uppercase tracking-wider  sm:w-3/12 w-4/12">
                         <div class="flex space-x-1  cursor-pointer" >
                             <a >Name</a>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
