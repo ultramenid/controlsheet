@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col h-full mb-3 mt-12 ">
+                    <div class="flex flex-col h-full mb-3 mt-12 px-4">
                          <a class="text-sm text-left"><b>Reason</b>: {!! $alertReason !!} </a>
                     </div>
 
