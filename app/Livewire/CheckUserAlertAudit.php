@@ -14,6 +14,10 @@ class CheckUserAlertAudit extends Component
     }
 
     #[On('fix-alert')]
+    public function refreshComponent(){
+        dd('refresed');
+    }
+
     public function render()
     {
         // dd($this->checkAlert());
