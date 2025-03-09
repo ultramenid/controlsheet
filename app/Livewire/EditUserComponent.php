@@ -35,7 +35,7 @@ class EditUserComponent extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'contact' => $this->contact,
-                'password' => $this->password ?? Hash::make($this->userPassword),
+                'password' => $this->userPassword ?? Hash::make($this->password),
                 'role_id' => $this->level,
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
