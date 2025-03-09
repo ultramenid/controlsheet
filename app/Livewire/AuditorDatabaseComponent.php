@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Events\UpdateAnalis;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
@@ -25,6 +27,7 @@ class AuditorDatabaseComponent extends Component
     }
 
     public function auditing($alertId){
+        event(new UpdateAnalis);
         if($this->manualValidation()){
             DB::table('alerts')->where('alertId', $alertId)->update([
                 'auditorStatus' => $this->alertStatus,
@@ -33,6 +36,7 @@ class AuditorDatabaseComponent extends Component
             ]);
             redirect()->to(url()->previous());
         }
+
     }
 
     public function showAudit($id){
@@ -47,6 +51,7 @@ class AuditorDatabaseComponent extends Component
 
     }
 
+    #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts(){
         $sc = '%' . $this->searchId . '%';
         try {

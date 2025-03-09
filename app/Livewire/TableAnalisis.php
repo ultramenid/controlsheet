@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Events\UpdateAuditor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -35,7 +37,9 @@ class TableAnalisis extends Component
         $this->alertReason = $data->auditorReason;
     }
 
+
     public function fixAlert($id){
+        event(new UpdateAuditor);
         DB::table('alerts')->where('alertId', $id)->update([
             'auditorStatus' => null,
             'auditorReason' => null,
@@ -45,6 +49,7 @@ class TableAnalisis extends Component
         $this->closeReason();
     }
 
+    #[On('echo:analis-data,UpdateAnalis')]
     public function getAlerts(){
         // $sc = '%' . $this->search . '%';
         try {
