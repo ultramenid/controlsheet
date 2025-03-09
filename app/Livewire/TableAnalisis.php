@@ -41,6 +41,7 @@ class TableAnalisis extends Component
             'auditorReason' => null,
             'updated_at' => Carbon::now('Asia/Jakarta')
         ]);
+        $this->dispatch('fix-alert');
         $this->closeReason();
     }
 

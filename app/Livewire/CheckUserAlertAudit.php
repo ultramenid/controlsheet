@@ -3,13 +3,17 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class CheckUserAlertAudit extends Component
 {
+
     public function checkAlert(){
         return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '!=', 'approved')->count();
     }
+
+    #[On('fix-alert')]
     public function render()
     {
         // dd($this->checkAlert());
