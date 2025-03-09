@@ -13,7 +13,7 @@ class AuditorDatabaseComponent extends Component
     use WithPagination;
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
 
     public function sortingField($field){
         $this->dataField = $field;
@@ -48,12 +48,12 @@ class AuditorDatabaseComponent extends Component
     }
 
     public function getAlerts(){
-        // $sc = '%' . $this->search . '%';
+        $sc = '%' . $this->searchId . '%';
         try {
             return  DB::table('alerts')
                         ->join('users', 'analisId', '=', 'users.id')
                         ->select('alerts.*', 'users.*')
-                        // ->where('analisId', session('id'))
+                        ->where('alertId', 'like' , $sc)
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

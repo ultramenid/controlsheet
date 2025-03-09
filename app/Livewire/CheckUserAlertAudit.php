@@ -8,7 +8,7 @@ use Livewire\Component;
 class CheckUserAlertAudit extends Component
 {
     public function checkAlert(){
-        return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '!=', 'approve')->count();
+        return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '!=', 'approved')->count();
     }
     public function render()
     {

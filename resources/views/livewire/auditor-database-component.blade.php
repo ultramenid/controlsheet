@@ -1,9 +1,12 @@
 <div class="mt-6 z-20 relative">
     <h1 class="text-3xl font-semibold text-gray-700">Alerts</h1>
+    <div class="flex mt-4">
+        <input class="sm:w-52 w-full py-2 border-gray-500 border px-2 focus:outline-none" wire:model.live='searchId' placeholder="alert ID">
+    </div>
     <div x-data="{ open: @entangle('isAudit') }">
         @include('partials.auditing')
     </div>
-    <div class="mt-12">
+    <div class="mt-4">
         <table class="w-full divide-y divide-gray-200  rounded-sm  border border-gray-100">
             <thead class="text-xs">
                 <tr >
