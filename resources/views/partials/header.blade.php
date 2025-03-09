@@ -7,6 +7,6 @@
 
     {{-- // responsive pc--}}
     <div class=" flex">
-        @include('partials.toogleProfile')
+        @include('partials.toogleprofile')
     </div>
  </header>
