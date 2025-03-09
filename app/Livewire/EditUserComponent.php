@@ -29,16 +29,29 @@ class EditUserComponent extends Component
 
     public function storeUser(){
         if($this->manualValidation()){
-            DB::table('users')
-            ->where('id', $this->idUser)
-            ->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'contact' => $this->contact,
-                'password' => Hash::make($this->password) ?? $this->userPassword,
-                'role_id' => $this->level,
-                'updated_at' => Carbon::now('Asia/Jakarta')
+            if(!$this->password){
+                DB::table('users')
+                ->where('id', $this->idUser)
+                ->update([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'contact' => $this->contact,
+                    'role_id' => $this->level,
+                    'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
+            }else{
+                DB::table('users')
+                ->where('id', $this->idUser)
+                ->update([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'contact' => $this->contact,
+                    'password' => Hash::make($this->password),
+                    'role_id' => $this->level,
+                    'updated_at' => Carbon::now('Asia/Jakarta')
+            ]);
+            }
+
             redirect()->to('/users');
         }
     }
