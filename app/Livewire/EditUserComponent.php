@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
 
@@ -34,7 +35,7 @@ class EditUserComponent extends Component
                 'name' => $this->name,
                 'email' => $this->email,
                 'contact' => $this->contact,
-                'password' => $this->password ?? $this->userPassword,
+                'password' => $this->password ?? Hash::make($this->userPassword),
                 'role_id' => $this->level,
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
