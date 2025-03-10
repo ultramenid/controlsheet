@@ -13,6 +13,9 @@ class UsersComponent extends Component
     public $deleteName, $deleteID, $deleter;
     public $dataField = 'name', $dataOrder = 'asc', $paginate = 10, $search = '';
 
+    public function updatedSearch(){
+        $this->resetPage();
+    }
     public function closeDelete(){
         $this->deleter = false;
         $this->deleteName = null;
