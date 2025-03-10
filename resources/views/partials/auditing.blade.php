@@ -25,6 +25,7 @@
                                 <option selected>Pending</option>
                                 <option value="rejected">Rejected</option>
                                 <option value="revision">Revision</option>
+                                <option value="duplicate">duplicate</option>
                                 <option value="approved">Approved</option>
                                 <option value="reexportimage">Re-export planet images</option>
                                 <option value="reclassification">Re-classification</option>
