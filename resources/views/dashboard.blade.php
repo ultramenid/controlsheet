@@ -9,7 +9,10 @@
 
         @if (session('role_id') == 1)
             <livewire:check-user-alert-audit />
-            <h1 class="text-2xl font-semibold text-gray-700">Alerts</h1>
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-semibold text-gray-700">Alerts</h1>
+                <livewire:check-approved-component />
+            </div>
             <livewire:table-analisis />
         @endif
     </div>
