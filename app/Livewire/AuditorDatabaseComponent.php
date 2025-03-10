@@ -39,6 +39,10 @@ class AuditorDatabaseComponent extends Component
 
     }
 
+    public function search(){
+        $this->resetPage();
+    }
+
     public function showAudit($id){
         $this->isAudit = true;
         //load data to delete function
