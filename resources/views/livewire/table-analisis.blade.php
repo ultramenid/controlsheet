@@ -73,6 +73,8 @@
                             <a class="rounded-xs  bg-gray-300 px-2 py-1">Pending</a>
                         @elseif ($item->auditorStatus == 'approved')
                             <a  class="rounded-xs  bg-green-700 px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
+                        @elseif ($item->auditorStatus == 'duplicate')
+                            <a  class="rounded-xs cursor-pointer  bg-red-700 px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
                         @else
                             <a wire:click="showReason({{ $item->id }})" @click.away="open = false" class="rounded-xs cursor-pointer  bg-red-700 px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
                         @endif
