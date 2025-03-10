@@ -39,7 +39,7 @@ class AuditorDatabaseComponent extends Component
 
     }
 
-    public function search(){
+    public function updatedSearchId(){
         $this->resetPage();
     }
 
