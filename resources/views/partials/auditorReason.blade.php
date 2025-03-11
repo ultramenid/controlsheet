@@ -8,7 +8,7 @@
             <!-- This element is to trick the browser into centering the modal contents. -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
-            <div class=" px-4 py-6 inline-block align-bottom h-[650px] over  rounded-sm bg-white text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full " role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            <div class=" px-4 py-6 inline-block align-bottom  over  rounded-sm bg-white text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full " role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                 <div class="">
                     <div class="flex">
                         <div class="sm:w-8/12 w-full">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col h-full mb-3 mt-12 px-4">
+                    <div class="flex flex-col  mb-3 mt-12 px-4 h-[650px] overflow-y-auto ">
                          <a class="text-sm text-left"><b>Reason</b>: {!! $alertReason !!} </a>
                     </div>
 
