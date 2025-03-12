@@ -21,15 +21,15 @@
           <tbody class="text-xs">
             @foreach ($alerts as $item )
                 <tr class="border-t">
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->auditorStatus}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Balinusatenggara}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Java}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Kalimantan}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Maluku}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Papua}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Sulawesi}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->Sumatra}}</td>
-                    <td class="border-b border-gray-300 px-4 py-2">{{$item->grandtotal}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['auditorStatus']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Balinusatenggara']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Java']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Kalimantan']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Maluku']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Papua']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Sulawesi']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Sumatra']}}</td>
+                    <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['TOTAL']}}</td>
                 </tr>
             @endforeach
 
