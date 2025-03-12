@@ -7,6 +7,10 @@
 
     <div class="max-w-6xl mx-auto px-7 py-4 sm:mt-28 mt-12 z-20">
 
+        @if (session('role_id') == 0)
+            <livewire:summary-alert-commponent />
+        @endif
+
         @if (session('role_id') == 1)
             <livewire:check-user-alert-audit />
             <div class="flex justify-between items-center">
