@@ -3,10 +3,13 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SummaryAlertCommponent extends Component
 {
+    #[On('echo:analis-data,UpdateAnalis')]
+    #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts(){
         return $query = DB::table('alerts')
         ->selectRaw("

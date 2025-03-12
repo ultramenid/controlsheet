@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-#[On('echo:analis-data,UpdateAnalis')]
 class CheckApprovedComponent extends Component
 {
     #[On('fix-alert')]
+    #[On('echo:analis-data,UpdateAnalis')]
     public function checkAlert(){
         return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '=', 'approved')->count();
     }
