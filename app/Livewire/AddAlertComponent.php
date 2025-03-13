@@ -10,7 +10,7 @@ use Masmerise\Toaster\Toaster;
 
 class AddAlertComponent extends Component
 {
-    public $alertId, $alertStatus, $detectionDate, $observation;
+    public $alertId, $alertStatus, $detectionDate, $observation, $alertNote;
     public $chooseRegion = '', $chooseProvince = '';
     public $region = 'Please select', $province = 'Please select';
 
@@ -112,6 +112,7 @@ class AddAlertComponent extends Component
                 'observation' => $this->observation,
                 'alertStatus' => $this->alertStatus,
                 'detectionDate' => $this->detectionDate,
+                'alertNote' => $this->alertNote,
                 'region' => $this->region,
                 'province' => $this->province,
                 'created_at' => Carbon::now('Asia/Jakarta')

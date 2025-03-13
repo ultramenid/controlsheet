@@ -17,4 +17,11 @@ class AlertController extends Controller
         return view('alerts', compact('title', 'nav'));
 
     }
+
+    public function auditing($id){
+        $id = $id;
+        $title = 'Auditing alert - Mapbiomas Indonesia';
+        $nav = 'alerts';
+        return view('auditing', compact('id', 'title', 'nav'));
+    }
 }

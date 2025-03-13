@@ -14,7 +14,7 @@ class AuditorDatabaseComponent extends Component
 {
     use WithPagination;
     public $isAudit = false;
-    public $alertId, $alertStatus, $alertReason, $analis;
+    public $alertId, $alertStatus, $alertReason, $analis, $alertNote;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
 
     public function sortingField($field){
@@ -52,6 +52,7 @@ class AuditorDatabaseComponent extends Component
         ->where('alertId', $id)->first();
         $this->alertId = $data->alertId;
         $this->analis = $data->name;
+        $this->alertNote = $data->alertNote;
 
     }
 

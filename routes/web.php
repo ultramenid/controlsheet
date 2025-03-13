@@ -21,6 +21,7 @@ Route::middleware([checkSession::class])->group(function () {
         Route::get('/adduser', [UsersController::class, 'adduser']);
         Route::get('/edituser/{id}', [UsersController::class, 'edituser']);
         Route::get('/alerts', [AlertController::class, 'index']);
+        Route::get('/alert/{id}', [AlertController::class, 'auditing']);
 
 
 

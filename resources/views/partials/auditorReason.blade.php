@@ -16,8 +16,8 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col  mb-3 mt-12 px-4 h-[650px] overflow-y-auto ">
-                         <a class="text-sm text-left"><b>Reason</b>: {!! $alertReason !!} </a>
+                    <div class="flex flex-col  mb-3 mt-4 h-[650px] overflow-y-auto ">
+                         <pre class="text-sm text-left"><b>Reason</b>: {!! $alertReason !!} </pre>
                     </div>
 
                 </div>
