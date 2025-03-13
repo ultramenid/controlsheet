@@ -28,7 +28,6 @@
                                 <select wire:ignore wire:model='alertStatus' class="w-full appearance-none  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
                                     <option selected>Pending</option>
                                     <option value="rejected">Rejected</option>
-                                    <option value="revision">Revision</option>
                                     <option value="duplicate">duplicate</option>
                                     <option value="approved">Approved</option>
                                     <option value="reexportimage">Re-export planet images</option>
