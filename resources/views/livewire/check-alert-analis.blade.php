@@ -19,7 +19,7 @@
             </tr>
           </thead>
           <tbody class="text-xs">
-            @foreach ($alerts as $item )
+            @forelse ($alerts as $item )
                 <tr class="border-t">
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->name}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->approved}}</td>
@@ -28,13 +28,19 @@
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->pending}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->total}}</td>
                 </tr>
-            @endforeach
+                @empty
+                <tr>
+                    <td class=" border-b border-gray-300 px-4 py-2">No data found</td>
+                </tr>
+            @endforelse
 
 
           </tbody>
         </table>
       </div>
 
-
+      @if ($alerts)
+      {{ $alerts->links('livewire.pagination') }}
+      @endif
 
 </div>
