@@ -39,6 +39,7 @@ class CheckAlertAnalis extends Component
                 ")
                 ->where('name', 'like' , $sc)
                 ->groupBy('alerts.analisId', 'users.name')
+                ->orderBy('name', 'asc')
                 ->paginate($this->paginate);
         return $query;
     }
