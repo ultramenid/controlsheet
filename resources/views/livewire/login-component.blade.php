@@ -1,4 +1,4 @@
-<div class="mx-auto  rounded border-gray-300 border w-96 bg-white ">
+<div class="mx-auto  rounded border-gray-300 border w-96 bg-white  z-20 relative">
     <form wire:submit.prevent="login">
         @csrf
         <div class="flex w-full justify-center">
