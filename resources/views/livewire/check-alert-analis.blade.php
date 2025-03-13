@@ -10,12 +10,12 @@
         <table class="w-full border-collapse border-b border-gray-300">
           <thead class="text-xs font-semibold">
             <tr class="bg-gray-50 text-left">
-              <th class=" cursor-pointer border-b border-gray-300 px-4 py-2">Validator</th>
-              <th class="border-b border-gray-300 px-4 py-2">Aprroved</th>
-              <th class="border-b border-gray-300 px-4 py-2">Rejected</th>
-              <th class="border-b border-gray-300 px-4 py-2">Duplicate</th>
-              <th class="border-b border-gray-300 px-4 py-2">Pending</th>
-              <th class="border-b border-gray-300 px-4 py-2">TOTAL</th>
+              <th wire:click='sortingField("name")' class=" cursor-pointer border-b border-gray-300 px-4 py-2">Validator</th>
+              <th wire:click='sortingField("approved")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Aprroved</th>
+              <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Rejected</th>
+              <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Duplicate</th>
+              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Pending</th>
+              <th wire:click='sortingField("total")' class="cursor-pointer border-b border-gray-300 px-4 py-2">TOTAL</th>
             </tr>
           </thead>
           <tbody class="text-xs">
