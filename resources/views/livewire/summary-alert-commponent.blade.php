@@ -1,4 +1,4 @@
-<div class="py-6 px-4 border border-gray-100 z-20">
+<div class="py-6 px-4 border border-gray-100 z-20 relative  bg-white">
     <div class="text-sm mb-6">
         <a>Alert status by region</a>
     </div>
