@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Events\UpdateAnalis;
+use App\Events\UpdateAuditor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
@@ -16,6 +17,27 @@ class AuditorDatabaseComponent extends Component
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
+    public $deleter = false, $alertDeleteId;
+
+    public function closeDelete(){
+        $this->deleter = false;
+        $this->alertDeleteId = null;
+    }
+    public function deleteAlert($alertId){
+
+        //load data to delete function
+        $dataDelete = DB::table('alerts')->where('alertId', $alertId)->first();
+        $this->alertDeleteId = $dataDelete->alertId;
+        $this->deleter = true;
+    }
+    public function deleting($alertId){
+        DB::table('alerts')->where('alertId', $alertId)->delete();
+        Toaster::success('Success deleting Alert');
+        $this->closeDelete();
+        event(new UpdateAnalis);
+        event(new UpdateAuditor);
+
+    }
 
     public function sortingField($field){
         $this->dataField = $field;
