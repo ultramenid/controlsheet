@@ -93,6 +93,7 @@
             tinymce.init({
                 selector: '#alertNote',
                 height : '30vh',
+                promotion: false,
                 relative_urls : false,
                     remove_script_host : false,
                     convert_urls : true,

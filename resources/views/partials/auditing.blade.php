@@ -45,6 +45,8 @@
                                 tinymce.init({
                                     selector: '#alertReason',
                                     height : '30vh',
+                                    promotion: false,
+                                    license_key: 'gpl',
                                     relative_urls : false,
                                         remove_script_host : false,
                                         convert_urls : true,
