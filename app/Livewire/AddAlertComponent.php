@@ -103,6 +103,20 @@ class AddAlertComponent extends Component
         return DB::table('alerts')->where('alertId', $this->alertId)->first();
     }
 
+    public function checkAlertStatus(){
+        $auditorStatus = null;
+
+        if($this->alertStatus == 'rejected'){
+            $auditorStatus = 'rejected';
+        }elseif($this->alertStatus == 'duplicate'){
+            $auditorStatus = 'duplicate';
+        }else{
+            $auditorStatus = null;
+        }
+
+        return $auditorStatus;
+    }
+
     public function storeAlert(){
 
         if($this->manualValidation()){
@@ -115,6 +129,7 @@ class AddAlertComponent extends Component
                 'alertNote' => $this->alertNote,
                 'region' => $this->region,
                 'province' => $this->province,
+                'auditorStatus' => $this->checkAlertStatus(),
                 'created_at' => Carbon::now('Asia/Jakarta')
             ]);
             redirect()->to('/dashboard');

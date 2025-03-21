@@ -13,7 +13,11 @@ class CheckUserAlertAudit extends Component
     #[On('fix-alert')]
     #[On('echo:analis-data,UpdateAnalis')]
     public function checkAlert(){
-        return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '!=', 'approved')->count();
+        return DB::table('alerts')->where('analisId', session('id'))
+        ->where('auditorStatus', '!=', 'approved')
+        ->Where('auditorStatus', '!=', 'duplicate')
+        ->Where('auditorStatus', '!=', 'rejected')
+        ->count();
     }
 
 

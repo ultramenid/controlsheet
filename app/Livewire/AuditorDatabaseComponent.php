@@ -17,7 +17,7 @@ class AuditorDatabaseComponent extends Component
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
-    public $deleter = false, $alertDeleteId;
+    public $deleter = false, $alertDeleteId, $selectStatus = 'all';
 
     public function closeDelete(){
         $this->deleter = false;
@@ -86,6 +86,9 @@ class AuditorDatabaseComponent extends Component
                         ->join('users', 'analisId', '=', 'users.id')
                         ->select('alerts.*', 'users.*')
                         ->where('alertId', 'like' , $sc)
+                        ->when($this->selectStatus === 'pending', function ($query) {
+                            return $query->whereNull('alerts.auditorStatus');
+                        })
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

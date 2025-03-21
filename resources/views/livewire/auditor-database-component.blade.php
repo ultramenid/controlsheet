@@ -1,7 +1,11 @@
 <div class="mt-6 z-20 relative">
     <h1 class="text-3xl font-semibold text-gray-700">Alerts</h1>
-    <div class="flex mt-4">
+    <div class="flex gap-4 sm:flex-row flex-col mt-4">
         <input class="sm:w-52 w-full py-2 border-gray-500 border px-2 focus:outline-none" wire:model.live='searchId' placeholder="alert ID">
+        <select wire:ignore wire:model.live='selectStatus' class="sm:w-52 w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+        </select>
     </div>
     <div x-data="{ open: @entangle('isAudit') }">
         @include('partials.auditing')
@@ -23,7 +27,7 @@
                      </th>
                     <th wire:click='sortingField("name")' class="bg-gray-50 px-6 py-4    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12 hidden sm:table-cell ">
                        <div class="flex space-x-1">
-                           <a>Analyst</a>
+                           <a>Input date</a>
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                             </svg>
@@ -60,7 +64,11 @@
                         <a>{{$item->alertId}}</a>
                     </td>
                     <td class="px-6 py-4 break-words text-sm  text-gray-700 hidden sm:table-cell">
-                        <a>{{ $item->name }}</a>
+                        @php
+                            $date = \Carbon\Carbon::parse($item->created_at)->locale(App::getLocale());
+                            $date->settings(['formatFunction' => 'translatedFormat']);
+                        @endphp</h1>
+                        <a>{{ $date->format('d-m-Y')  }}</a>
                     </td>
 
                     <td class="px-6 py-4 break-words text-sm  text-gray-700 hidden sm:table-cell">
@@ -73,9 +81,11 @@
                         @if (!$item->auditorStatus)
                             <a  wire:click="showAudit({{ $item->alertId }})" @click.away="open = false" class="cursor-pointer rounded-xs  bg-gray-300 px-2 py-1">Pending</a>
                         @elseif ($item->auditorStatus == 'approved')
-                            <a  class="rounded-xs  bg-green-700 px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
+                            <a  class="rounded-xs  bg-green-alerta px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
+                        @elseif ($item->auditorStatus == 'duplicate' or $item->auditorStatus == 'rejected')
+                            <a  class="rounded-xs  bg-merah-alerta px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
                         @else
-                            <a  class="rounded-xs   bg-red-700 px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
+                            <a  class="rounded-xs   bg-yellow-alerta px-2 py-1 text-gray-100">{{$item->auditorStatus}}</a>
                         @endif
                     </td>
 
