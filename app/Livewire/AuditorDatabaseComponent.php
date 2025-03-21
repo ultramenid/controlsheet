@@ -87,8 +87,6 @@ class AuditorDatabaseComponent extends Component
         $sc = '%' . $this->searchId . '%';
         try {
             return  DB::table('alerts')
-                        ->join('users', 'analisId', '=', 'users.id')
-                        ->select('alerts.*', 'users.*')
                         ->where('alertId', 'like' , $sc)
                         ->when($this->selectStatus === 'pending', function ($query) {
                             return $query->whereNull('alerts.auditorStatus');
@@ -102,6 +100,7 @@ class AuditorDatabaseComponent extends Component
     public function render()
     {
         $databases = $this->getAlerts();
+        // dd($databases);
         return view('livewire.auditor-database-component', compact('databases'));
     }
 
