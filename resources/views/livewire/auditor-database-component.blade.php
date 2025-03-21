@@ -25,7 +25,7 @@
                                 </svg>
                          </div>
                      </th>
-                    <th wire:click='sortingField("name")' class="bg-gray-50 px-6 py-4    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12 hidden sm:table-cell ">
+                    <th wire:click='sortingField("alerts.created_at")' class="bg-gray-50 px-6 py-4    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12 hidden sm:table-cell ">
                        <div class="flex space-x-1">
                            <a>Input date</a>
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
