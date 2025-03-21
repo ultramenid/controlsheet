@@ -65,6 +65,10 @@ class AuditorDatabaseComponent extends Component
         $this->resetPage();
     }
 
+    public function updatedSelectStatus(){
+        $this->resetPage();
+    }
+
     public function showAudit($id){
         $this->isAudit = true;
         //load data to delete function
