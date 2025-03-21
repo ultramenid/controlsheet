@@ -142,7 +142,7 @@ class AddAlertComponent extends Component
             return;
         }elseif($this->province == 'Please select'){
             Toaster::error('Province is required!');
-            ;
+            return;
         }
         return true;
     }

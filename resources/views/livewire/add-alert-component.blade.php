@@ -94,6 +94,8 @@
                 selector: '#alertNote',
                 height : '30vh',
                 promotion: false,
+                branding: false,
+                license_key: 'gpl',
                 relative_urls : false,
                     remove_script_host : false,
                     convert_urls : true,
