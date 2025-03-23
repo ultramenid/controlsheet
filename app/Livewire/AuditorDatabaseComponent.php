@@ -17,7 +17,12 @@ class AuditorDatabaseComponent extends Component
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
-    public $deleter = false, $alertDeleteId, $selectStatus = 'all';
+    public $deleter = false, $alertDeleteId, $selectStatus ;
+
+
+    public function mount(){
+        $this->selectStatus = session('selectStatus');
+    }
 
     public function closeDelete(){
         $this->deleter = false;
@@ -45,7 +50,9 @@ class AuditorDatabaseComponent extends Component
     }
 
     public function closeReason(){
+        $this->selectStatus = session('selectStatus');
         redirect()->to(url()->previous());
+        // dd(session()->all());
     }
 
     public function auditing($alertId){
@@ -65,7 +72,9 @@ class AuditorDatabaseComponent extends Component
         $this->resetPage();
     }
 
-    public function updatedSelectStatus(){
+    public function updatedSelectStatus($value){
+        session(['selectStatus' => $value]);
+        // dd(session()/->all());
         $this->resetPage();
     }
 
