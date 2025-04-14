@@ -17,12 +17,20 @@ class AuditorDatabaseComponent extends Component
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
-    public $deleter = false, $alertDeleteId, $selectStatus ;
+    public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert ;
 
 
     public function mount(){
         $this->selectStatus = session('selectStatus');
+        $this->yearAlert = session('yearAlert') ? session('yearAlert') : Carbon::now()->format('Y');
+
     }
+
+    public function updatedYearAlert($value){
+        session(['selectStatus' => $value]);
+        $this->resetPage();
+    }
+
 
     public function closeDelete(){
         $this->deleter = false;
@@ -78,6 +86,8 @@ class AuditorDatabaseComponent extends Component
         $this->resetPage();
     }
 
+
+
     public function showAudit($id){
         $this->isAudit = true;
         //load data to delete function
@@ -98,7 +108,10 @@ class AuditorDatabaseComponent extends Component
             return  DB::table('alerts')
                         ->where('alertId', 'like' , $sc)
                         ->when($this->selectStatus === 'pending', function ($query) {
-                            return $query->whereNull('alerts.auditorStatus');
+                            return $query->whereNull('auditorStatus');
+                        })
+                        ->when($this->yearAlert, function ($query) {
+                            return $query->whereYear('detectionDate', $this->yearAlert);
                         })
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
