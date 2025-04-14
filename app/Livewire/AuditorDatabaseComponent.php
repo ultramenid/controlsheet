@@ -22,12 +22,12 @@ class AuditorDatabaseComponent extends Component
 
     public function mount(){
         $this->selectStatus = session('selectStatus');
-        $this->yearAlert = session('yearAlert') ? session('yearAlert') : Carbon::now()->format('Y');
+        $this->yearAlert = session('yearAlert');
 
     }
 
     public function updatedYearAlert($value){
-        session(['selectStatus' => $value]);
+        session(['yearAlert' => $value]);
         $this->resetPage();
     }
 
