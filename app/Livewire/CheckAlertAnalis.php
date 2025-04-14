@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -12,6 +13,18 @@ class CheckAlertAnalis extends Component
     use WithPagination;
     public $searchName;
     public $dataField = 'name', $dataOrder = 'asc', $paginate = 5;
+
+    public $yearAlert;
+
+    public function mount(){
+        $this->yearAlert = Carbon::now()->format('Y');
+    }
+
+    #[On('filterYear')]
+    public function updateData($year)
+    {
+        $this->yearAlert = $year;
+    }
 
     public function sortingField($field){
         $this->dataField = $field;
@@ -38,6 +51,7 @@ class CheckAlertAnalis extends Component
                     COUNT(alerts.alertId) AS total
                 ")
                 ->where('name', 'like' , $sc)
+                ->whereYear('detectionDate', $this->yearAlert)
                 ->groupBy('alerts.analisId', 'users.name')
                 ->orderBy($this->dataField, $this->dataOrder)
                 ->paginate($this->paginate);

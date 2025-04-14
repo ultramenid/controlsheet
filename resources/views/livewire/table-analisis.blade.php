@@ -1,4 +1,4 @@
-<div class="mt-6 z-20 relative">
+<div class="mt-2 z-20 relative">
     <div x-data="{ open: @entangle('isReason') }">
         @include('partials.auditorReason')
     </div>

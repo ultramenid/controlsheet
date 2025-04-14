@@ -2,12 +2,26 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SummaryAlertCommponent extends Component
 {
+
+    public $yearAlert;
+
+    public function mount(){
+        $this->yearAlert = Carbon::now()->format('Y');
+    }
+
+    #[On('filterYear')]
+    public function updateData($year)
+    {
+        $this->yearAlert = $year;
+    }
+
     #[On('echo:analis-data,UpdateAnalis')]
     #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts(){
@@ -23,6 +37,7 @@ class SummaryAlertCommponent extends Component
             SUM(CASE WHEN region = 'Sumatra' THEN 1 ELSE 0 END) AS `Sumatra`,
             COUNT(*) AS `TOTAL`
         ")
+        ->whereYear('detectionDate', $this->yearAlert)
         ->groupBy('auditorStatus')
         ->get();
 

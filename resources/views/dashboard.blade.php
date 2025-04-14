@@ -8,6 +8,7 @@
     <div class="max-w-6xl mx-auto px-7 py-4  mt-12 z-20">
 
         @if (session('role_id') == 0)
+            <livewire:filter-dashboard-component>
             <livewire:summary-alert-commponent />
             <livewire:check-alert-analis />
         @endif
