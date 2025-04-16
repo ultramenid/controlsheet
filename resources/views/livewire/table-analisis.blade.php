@@ -16,9 +16,9 @@
                                 </svg>
                          </div>
                      </th>
-                    <th wire:click='sortingField("alertStatus")' class="bg-gray-50 px-6 py-4    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-3/12 w-4/12 hidden sm:table-cell ">
+                    <th wire:click='sortingField("created_at")' class="bg-gray-50 px-6 py-4    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-3/12 w-4/12 hidden sm:table-cell ">
                        <div class="flex space-x-1">
-                           <a>Alert Status</a>
+                           <a>Input date</a>
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                             </svg>
@@ -61,7 +61,11 @@
                         <a>{{$item->alertId}}</a>
                     </td>
                     <td class="px-6 py-4 break-words text-xs  text-gray-700 hidden sm:table-cell">
-                        <a>{{ $item->alertStatus }}</a>
+                        @php
+                            $date = \Carbon\Carbon::parse($item->created_at)->locale(App::getLocale());
+                            $date->settings(['formatFunction' => 'translatedFormat']);
+                        @endphp</h1>
+                        <a>{{ $date->format('d-m-Y')  }}</a>
                     </td>
 
                     <td class="px-6 py-4 break-words text-xs  text-gray-700 hidden sm:table-cell">

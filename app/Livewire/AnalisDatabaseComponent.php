@@ -59,7 +59,7 @@ class AnalisDatabaseComponent extends Component
         $sc = '%' . $this->search . '%';
         try {
             return  DB::table('alerts')
-                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason')
+                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at')
                         ->where('analisId', session('id'))
                         ->where('alertId', 'like' , $sc)
                         ->orderBy($this->dataField, $this->dataOrder)

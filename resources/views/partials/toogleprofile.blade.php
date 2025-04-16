@@ -1,4 +1,4 @@
-<div class="relative " x-data="{ isProfileMenuOpen: false}">
+<div class="relative z-30" x-data="{ isProfileMenuOpen: false}">
     <button
       title="Profile"
       @click="isProfileMenuOpen = !isProfileMenuOpen"
