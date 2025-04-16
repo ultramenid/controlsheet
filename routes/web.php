@@ -15,13 +15,15 @@ Route::middleware([checkSession::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/addalert', [AlertController::class, 'addalert']);
     Route::get('/settings', [SettingsController::class, 'index']);
+    Route::get('/alerts', [AlertController::class, 'index']);
+    Route::get('/editalert/{id}', [AlertController::class, 'editalert']);
 
     Route::middleware([checkLevel::class])->group(function(){
+
         Route::get('/users', [UsersController::class, 'index']);
         Route::get('/adduser', [UsersController::class, 'adduser']);
         Route::get('/edituser/{id}', [UsersController::class, 'edituser']);
-        Route::get('/alerts', [AlertController::class, 'index']);
-        Route::get('/alert/{id}', [AlertController::class, 'auditing']);
+
 
 
 

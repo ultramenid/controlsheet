@@ -5,10 +5,11 @@
                 <a href="{{url('/dashboard')}}" class=" px-0.5  @if($nav == 'dashboard' )   text-newgray-900 dark:text-gray-300 @endif   hover:text-newgray-900 dark:hover:text-gray-300 cursor-pointer" >dashboard</a>
             </div>
 
-            @if (session('role_id') == 0)
+
                 <div class=" dark:hover:bg-newgray-700 py-3 px-2 rounded @if($nav == 'alerts' )border-b-2   border-gray-900 @endif ">
                     <a href="{{url('/alerts')}}" class=" px-0.5  @if($nav == 'alerts' )   text-newgray-900 dark:text-gray-300 @endif   hover:text-newgray-900 dark:hover:text-gray-300 cursor-pointer" >alerts</a>
                 </div>
+            @if (session('role_id') == 0)
                 <div class=" dark:hover:bg-newgray-700 py-3 px-2 rounded @if($nav == 'users' )border-b-2   border-gray-900 @endif ">
                     <a href="{{url('/users')}}" class=" px-0.5  @if($nav == 'users' )   text-newgray-900 dark:text-gray-300 @endif   hover:text-newgray-900 dark:hover:text-gray-300 cursor-pointer" >users</a>
                 </div>

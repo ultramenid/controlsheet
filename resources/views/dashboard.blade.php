@@ -14,11 +14,12 @@
         @endif
 
         @if (session('role_id') == 1)
-            <livewire:check-user-alert-audit />
-            <div class="flex justify-between items-center">
+            <livewire:sumary-alert-analis />
+            {{-- <livewire:check-user-alert-audit /> --}}
+            {{-- <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-semibold text-gray-700">Alerts</h1>
                 <livewire:check-approved-component />
-            </div>
+            </div> --}}
             <livewire:table-analisis />
         @endif
     </div>

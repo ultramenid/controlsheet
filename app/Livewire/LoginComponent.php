@@ -19,6 +19,7 @@ class LoginComponent extends Component
     }
 
     public function login(){
+        // dd($this->getDatauser());
         $this->validate([
             'email' => 'required',
             'password' => 'required'

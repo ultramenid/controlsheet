@@ -9,7 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TableAnalisis extends Component
+class AnalisDatabaseComponent extends Component
 {
     use WithPagination;
     public $isReason = false;
@@ -61,10 +61,6 @@ class TableAnalisis extends Component
             return  DB::table('alerts')
                         ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason')
                         ->where('analisId', session('id'))
-                        ->where('auditorStatus', '!=', null)
-                        ->where('auditorStatus', '!=', 'approved')
-                        ->where('auditorStatus', '!=', 'rejected')
-                        ->where('auditorStatus', '!=', 'duplicate')
                         ->where('alertId', 'like' , $sc)
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
@@ -75,6 +71,6 @@ class TableAnalisis extends Component
     public function render()
     {
         $databases = $this->getAlerts();
-        return view('livewire.table-analisis', compact('databases'));
+        return view('livewire.analis-database-component', compact('databases'));
     }
 }

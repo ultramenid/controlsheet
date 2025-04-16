@@ -6,7 +6,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-2 size-5">
                 <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
-            <select wire:ignore wire:model.live='selectStatus'class=" w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
+            <select wire:ignore wire:model.live='selectStatus'class=" w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-xs focus:outline-none">
                 <option value="all">All</option>
                 <option value="pending">Pending</option>
             </select>
@@ -15,7 +15,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-2 size-5">
                 <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
-            <select wire:ignore id='date-dropdown' wire:model.live="yearAlert" class=" w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
+            <select wire:ignore id='date-dropdown' wire:model.live="yearAlert" class=" w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-xs focus:outline-none">
 
             </select>
         </div>
@@ -73,10 +73,10 @@
             <tbody class="bg-white  divide-y divide-gray-200 ">
                 @forelse ($databases as $item)
                 <tr>
-                    <td class="px-6 py-4 break-words text-sm  text-gray-700 ">
+                    <td class="px-6 py-4 break-words text-xs  text-gray-700 ">
                         <a>{{$item->alertId}}</a>
                     </td>
-                    <td class="px-6 py-4 break-words text-sm  text-gray-700 hidden sm:table-cell">
+                    <td class="px-6 py-4 break-words text-xs  text-gray-700 hidden sm:table-cell">
                         @php
                             $date = \Carbon\Carbon::parse($item->created_at)->locale(App::getLocale());
                             $date->settings(['formatFunction' => 'translatedFormat']);
@@ -84,13 +84,13 @@
                         <a>{{ $date->format('d-m-Y')  }}</a>
                     </td>
 
-                    <td class="px-6 py-4 break-words text-sm  text-gray-700 hidden sm:table-cell">
+                    <td class="px-6 py-4 break-words text-xs  text-gray-700 hidden sm:table-cell">
                         <a >{{$item->region}}</a>
                     </td>
-                    <td class="px-6 py-4 break-words text-sm  text-gray-700 hidden sm:table-cell">
+                    <td class="px-6 py-4 break-words text-xs  text-gray-700 hidden sm:table-cell">
                         <a >{{$item->province}}</a>
                     </td>
-                    <td class="px-6 py-4 break-words text-sm  text-gray-700">
+                    <td class="px-6 py-4 break-words text-xs  text-gray-700">
                         @if (!$item->auditorStatus)
                             <a  wire:click="showAudit({{ $item->alertId }})" @click.away="open = false" class="cursor-pointer rounded-xs  bg-gray-300 px-2 py-1">Pending</a>
                         @elseif ($item->auditorStatus == 'approved')
@@ -111,7 +111,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="whitespace-nowrap text-sm text-gray-700 px-6 py-3">
+                    <td colspan="5" class="whitespace-nowrap text-xs text-gray-700 px-6 py-3">
                         No data found
                     </td>
                 </tr>

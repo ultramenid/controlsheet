@@ -1,5 +1,5 @@
 <div class="mt-2  py-6 px-4 border border-gray-100 z-20 relative  bg-white">
-    <a class="text-sm ">Alert Need to Fix</a>
+    <a class="">Alerts</a>
     <div x-data="{ open: @entangle('isReason') }">
         @include('partials.auditorReason')
     </div>
