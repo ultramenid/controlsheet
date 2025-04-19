@@ -1,6 +1,6 @@
-<div class="max-w-3xl mx-auto py-12 px-4">
+<div class="max-w-3xl mx-auto py-12 px-4 z-20 relative">
     <div class="flex justify-between">
-        <h1 class="font-semibold text-3xl mt-10 mb-6 text-gray-700">Add alert</h1>
+        <h1 class="font-semibold text-3xl mt-10 mb-6 text-gray-700">Edit alert</h1>
         <div class="flex justify-end items-center mt-4">
             <button wire:click='storeAlert' class="bg-black py-2 px-4 text-white w-32 cursor-pointer h-10">Update</button>
         </div>
