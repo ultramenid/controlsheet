@@ -10,7 +10,7 @@
 
             <div class=" px-4 py-6 inline-block align-bottom h-[650px]  overflow-y-auto  rounded-sm bg-white text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl w-full " role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                 <div class="w-full">
-                    <a class="text-xl">{{$alertId}} - {{$analis}}</a>
+                    <a class="text-xl">{{$alertId}} - {{$observation}} - {{$analis}}</a>
                 </div>
                 <div class=" flex sm:flex-row flex-col gap-6">
                     <div class="sm:w-6/12 w-full">
