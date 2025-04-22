@@ -38,7 +38,9 @@ class SummaryAlertCommponent extends Component
             COUNT(*) AS `TOTAL`
         ")
 
-        ->whereYear('detectionDate', $this->yearAlert)
+        ->when($this->yearAlert !== 'all', function ($query) {
+            $query->whereYear('detectionDate', $this->yearAlert);
+        })
         ->groupBy('auditorStatus')
         ->get();
 

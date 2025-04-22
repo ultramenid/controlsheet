@@ -51,7 +51,9 @@ class CheckAlertAnalis extends Component
                     COUNT(alerts.alertId) AS total
                 ")
                 ->where('name', 'like' , $sc)
-                ->whereYear('detectionDate', $this->yearAlert)
+                ->when($this->yearAlert !== 'all', function ($query) {
+                    $query->whereYear('detectionDate', $this->yearAlert);
+                })
                 ->groupBy('alerts.analisId', 'users.name')
                 ->orderBy($this->dataField, $this->dataOrder)
                 ->paginate($this->paginate);
