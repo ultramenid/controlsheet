@@ -47,6 +47,8 @@ class CheckAlertAnalis extends Component
                     SUM(CASE WHEN alerts.auditorStatus = 'approved' THEN 1 ELSE 0 END) AS approved,
                     SUM(CASE WHEN alerts.auditorStatus = 'rejected' THEN 1 ELSE 0 END) AS rejected,
                     SUM(CASE WHEN alerts.auditorStatus = 'duplicate' THEN 1 ELSE 0 END) AS duplicate,
+                    SUM(CASE WHEN alerts.auditorStatus = 'reexportimage' THEN 1 ELSE 0 END) AS reexportimage,
+                    SUM(CASE WHEN alerts.auditorStatus = 'reclassification' THEN 1 ELSE 0 END) AS reclassification,
                     SUM(CASE WHEN alerts.auditorStatus IS NULL OR alerts.auditorStatus NOT IN ('approved', 'rejected', 'duplicate') THEN 1 ELSE 0 END) AS pending,
                     COUNT(alerts.alertId) AS total
                 ")
@@ -62,6 +64,7 @@ class CheckAlertAnalis extends Component
     public function render()
     {
         $alerts = $this->getAlerts();
+        // dd($alerts);
         return view('livewire.check-alert-analis', compact('alerts'));
     }
 }

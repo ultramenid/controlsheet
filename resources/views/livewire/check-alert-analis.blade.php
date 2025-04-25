@@ -12,6 +12,8 @@
             <tr class="bg-gray-50 text-left">
               <th wire:click='sortingField("name")' class=" cursor-pointer border-b border-gray-300 px-4 py-2">Validator</th>
               <th wire:click='sortingField("approved")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Aprroved</th>
+              <th wire:click='sortingField("reexportimage")' class="cursor-pointer border-b border-gray-300 px-4 py-2">reexportimage</th>
+              <th wire:click='sortingField("reclassification")' class="cursor-pointer border-b border-gray-300 px-4 py-2">reclassification</th>
               <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Rejected</th>
               <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Duplicate</th>
               <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Pending</th>
@@ -23,6 +25,8 @@
                 <tr class="border-t">
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->name}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->approved}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->reexportimage}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->reclassification}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->rejected}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->duplicate}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->pending}}</td>
