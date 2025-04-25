@@ -12,7 +12,7 @@ class CheckAlertAnalis extends Component
 {
     use WithPagination;
     public $searchName;
-    public $dataField = 'name', $dataOrder = 'asc', $paginate = 5;
+    public $dataField = 'name', $dataOrder = 'asc';
 
     public $yearAlert;
 
@@ -56,7 +56,7 @@ class CheckAlertAnalis extends Component
                 })
                 ->groupBy('alerts.analisId', 'users.name')
                 ->orderBy($this->dataField, $this->dataOrder)
-                ->paginate($this->paginate);
+                ->get();
         return $query;
     }
     public function render()

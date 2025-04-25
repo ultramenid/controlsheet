@@ -39,8 +39,8 @@
         </table>
       </div>
 
-      @if ($alerts)
+      {{-- @if ($alerts)
       {{ $alerts->links('livewire.pagination') }}
-      @endif
+      @endif --}}
 
 </div>
