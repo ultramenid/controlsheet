@@ -32,6 +32,7 @@ class LoginComponent extends Component
                 'role_id'=> $this->getDatauser()->role_id,
                 'name' => $this->getDatauser()->name,
                 'email' => $this->getDatauser()->email,
+                'yearAlert' => 'all'
             ]);
             redirect('/dashboard');
          }else{
