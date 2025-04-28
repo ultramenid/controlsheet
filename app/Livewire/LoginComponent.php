@@ -30,7 +30,8 @@ class LoginComponent extends Component
             session([
                 'id' => $this->getDatauser()->id,
                 'role_id'=> $this->getDatauser()->role_id,
-                'name' => $this->getDatauser()->name
+                'name' => $this->getDatauser()->name,
+                'email' => $this->getDatauser()->email,
             ]);
             redirect('/dashboard');
          }else{

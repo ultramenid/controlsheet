@@ -17,15 +17,18 @@ class AuditorDatabaseComponent extends Component
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
-    public $deleter = false, $alertDeleteId, $selectStatus;
+    public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
 
 
     public function mount(){
         $this->selectStatus = session('selectStatus');
-
+        $this->yearAlert = session('yearAlert');
     }
 
-
+    public function updatedYearAlert($value){
+        session(['yearAlert' => $value]);
+        $this->resetPage();
+    }
 
 
     public function closeDelete(){
@@ -106,6 +109,9 @@ class AuditorDatabaseComponent extends Component
                         ->where('alertId', 'like' , $sc)
                         ->when($this->selectStatus === 'pending', function ($query) {
                             return $query->whereNull('auditorStatus');
+                        })
+                        ->when($this->yearAlert != 'all', function ($query) {
+                            return $query->whereYear('detectionDate', $this->yearAlert);
                         })
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
