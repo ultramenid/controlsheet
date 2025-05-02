@@ -3,40 +3,30 @@
 namespace App\Livewire;
 
 use App\Events\UpdateAnalis;
-use App\Events\UpdateAuditor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Masmerise\Toaster\Toaster;
 
-class AuditorDatabaseComponent extends Component
+class AlertAnalisComponent extends Component
 {
+    public $analisId;
+
     use WithPagination;
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
     public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
 
-
-    public function mount(){
-        $this->selectStatus = session('selectStatus');
-        $this->yearAlert = session('yearAlert');
+    public function getAnalisName($id){
+        return DB::table('users')->where('id', $id)->first();
     }
-
-    public function updatedYearAlert($value){
-        session(['yearAlert' => $value]);
-        $this->resetPage();
-    }
-
-
     public function closeDelete(){
         $this->deleter = false;
         $this->alertDeleteId = null;
     }
     public function deleteAlert($alertId){
-
         //load data to delete function
         $dataDelete = DB::table('alerts')->where('alertId', $alertId)->first();
         $this->alertDeleteId = $dataDelete->alertId;
@@ -44,16 +34,53 @@ class AuditorDatabaseComponent extends Component
     }
     public function deleting($alertId){
         DB::table('alerts')->where('alertId', $alertId)->delete();
-        Toaster::success('Success deleting Alert');
+        $this->dispatch('alert-deleted');
         $this->closeDelete();
-        event(new UpdateAnalis);
-        event(new UpdateAuditor);
-
     }
 
+    public function mount($id)
+    {
+        $this->analisId = $id;
+        $this->selectStatus = session('selectStatus');
+        $this->yearAlert = session('yearAlert');
+    }
+    public function updatedYearAlert($value){
+        session(['yearAlert' => $value]);
+        $this->resetPage();
+    }
     public function sortingField($field){
         $this->dataField = $field;
         $this->dataOrder = $this->dataOrder == 'asc' ? 'desc' : 'asc';
+    }
+    public function updatedSearchId(){
+        $this->resetPage();
+    }
+
+    public function updatedSelectStatus($value){
+        session(['selectStatus' => $value]);
+        // dd(session()/->all());
+        $this->resetPage();
+    }
+
+    #[On('echo:analis-data,UpdateAnalis')]
+    #[On('echo:auditor-data,UpdateAuditor')]
+    public function getAlerts(){
+        $sc = '%' . $this->searchId . '%';
+        try {
+            return  DB::table('alerts')
+                        ->where('alertId', 'like' , $sc)
+                        ->where('analisId', $this->analisId)
+                        ->when($this->selectStatus === 'pending', function ($query) {
+                            return $query->whereNull('auditorStatus');
+                        })
+                        ->when($this->yearAlert != 'all', function ($query) {
+                            return $query->whereYear('detectionDate', $this->yearAlert);
+                        })
+                        ->orderBy($this->dataField, $this->dataOrder)
+                        ->paginate($this->paginate);
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
 
     public function closeReason(){
@@ -74,19 +101,6 @@ class AuditorDatabaseComponent extends Component
         }
 
     }
-
-    public function updatedSearchId(){
-        $this->resetPage();
-    }
-
-    public function updatedSelectStatus($value){
-        session(['selectStatus' => $value]);
-        // dd(session()/->all());
-        $this->resetPage();
-    }
-
-
-
     public function showAudit($id){
         $this->isAudit = true;
         //load data to delete function
@@ -101,40 +115,11 @@ class AuditorDatabaseComponent extends Component
 
     }
 
-    #[On('echo:analis-data,UpdateAnalis')]
-    #[On('echo:auditor-data,UpdateAuditor')]
-    public function getAlerts(){
-        $sc = '%' . $this->searchId . '%';
-        try {
-            return  DB::table('alerts')
-                        ->where('alertId', 'like' , $sc)
-                        ->when($this->selectStatus === 'pending', function ($query) {
-                            return $query->whereNull('auditorStatus');
-                        })
-                        ->when($this->yearAlert != 'all', function ($query) {
-                            return $query->whereYear('detectionDate', $this->yearAlert);
-                        })
-                        ->orderBy($this->dataField, $this->dataOrder)
-                        ->paginate($this->paginate);
-        } catch (\Throwable $th) {
-            return [];
-        }
-    }
     public function render()
     {
+        // dd($this->getAlerts());
         $databases = $this->getAlerts();
-        // dd($databases);
-        return view('livewire.auditor-database-component', compact('databases'));
-    }
-
-    public function manualValidation(){
-        if($this->alertStatus == ''){
-            Toaster::error('Alert status is required!');
-            return;
-        }elseif($this->alertReason == '' and $this->alertStatus != 'approved'){
-            Toaster::error('Alert reason is required!');
-            return;
-        }
-        return true;
+        $analisName = $this->getAnalisName($this->analisId);
+        return view('livewire.alert-analis-component', compact('databases', 'analisName'));
     }
 }

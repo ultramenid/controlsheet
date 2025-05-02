@@ -40,4 +40,11 @@ class AlertController extends Controller
         $nav = 'alerts';
         return view('editalert', compact('id', 'title', 'nav'));
     }
+
+    public function alertanalis($id){
+        $id = $id;
+        $title = 'Alert analis - Mapbiomas Indonesia';
+        $nav = 'alerts';
+        return view('alertanalis', compact('id', 'title', 'nav'));
+    }
 }

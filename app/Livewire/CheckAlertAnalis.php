@@ -43,6 +43,7 @@ class CheckAlertAnalis extends Component
                 ->join('users', 'alerts.analisId', '=', 'users.id')
                 ->selectRaw("
                     users.name,
+                    users.id as userId,
                     alerts.analisId,
                     SUM(CASE WHEN alerts.auditorStatus = 'approved' THEN 1 ELSE 0 END) AS approved,
                     SUM(CASE WHEN alerts.auditorStatus = 'rejected' THEN 1 ELSE 0 END) AS rejected,

@@ -23,7 +23,7 @@
           <tbody class="text-xs">
             @forelse ($alerts as $item )
                 <tr class="border-t">
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->name}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2"><a href="{{ url('/alertanalis/'.$item->userId) }}" class="hover:underline">{{$item->name}}</a></td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->approved}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->reexportimage}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->reclassification}}</td>
