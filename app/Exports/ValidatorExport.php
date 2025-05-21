@@ -12,11 +12,13 @@ class ValidatorExport implements FromCollection, WithHeadings
 
     private $status;
     private $year;
+    private $analisId;
 
-    public function __construct($status, $year)
+    public function __construct($status, $year, $analisId)
     {
         $this->status = $status;
         $this->year  = $year;
+        $this->analisId = $analisId;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -32,6 +34,7 @@ class ValidatorExport implements FromCollection, WithHeadings
         ->when($this->year != 'all', function ($query) {
             return $query->whereYear('detectionDate', $this->year);
         })
+        ->where('alerts.analisId', $this->analisId)
         ->get();
     }
 

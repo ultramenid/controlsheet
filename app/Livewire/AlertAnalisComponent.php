@@ -24,7 +24,7 @@ class AlertAnalisComponent extends Component
 
      // https://laravel-excel.com/
     public function exportExcel(){
-        return  Excel::download(new ValidatorExport($this->selectStatus, $this->yearAlert), 'ValidatorExport.xlsx');
+        return  Excel::download(new ValidatorExport($this->selectStatus, $this->yearAlert, $this->analisId), 'ValidatorExport.xlsx');
     }
 
     public function getAnalisName($id){
