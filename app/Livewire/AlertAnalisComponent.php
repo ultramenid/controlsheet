@@ -3,11 +3,13 @@
 namespace App\Livewire;
 
 use App\Events\UpdateAnalis;
+use App\Exports\ValidatorExport;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AlertAnalisComponent extends Component
 {
@@ -18,6 +20,12 @@ class AlertAnalisComponent extends Component
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
     public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
+
+
+     // https://laravel-excel.com/
+    public function exportExcel(){
+        return  Excel::download(new ValidatorExport($this->selectStatus, $this->yearAlert), 'ValidatorExport.xlsx');
+    }
 
     public function getAnalisName($id){
         return DB::table('users')->where('id', $id)->first();

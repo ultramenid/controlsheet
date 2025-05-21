@@ -27,18 +27,7 @@
                     </svg>
                     <select wire:ignore wire:model='alertStatus' class="w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
                         <option selected>Please Select</option>
-                        <option value="doubt">Doubt</option>
                         <option value="valid">Valid</option>
-                        <option value="availabilityofimages">Availability of images</option>
-                        <option value="burned">Burned</option>
-                        <option value="farming">Farming</option>
-                        <option value="naturalwithoutchange">Natural without change</option>
-                        <option value="reforestation">Reforestation</option>
-                        <option value="seasonality">Seasonality</option>
-                        <option value="shadowrelief">Shadow relief</option>
-                        <option value="duplicate">Duplicate</option>
-                        <option value="cloud">Cloud</option>
-                        <option value="degradation">Degradation</option>
                         <option value="rejected">Rejected</option>
                     </select>
                 </div>

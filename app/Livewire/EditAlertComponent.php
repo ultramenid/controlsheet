@@ -116,8 +116,6 @@ class EditAlertComponent extends Component
 
         if($this->alertStatus == 'rejected'){
             $auditorStatus = 'rejected';
-        }elseif($this->alertStatus == 'duplicate'){
-            $auditorStatus = 'duplicate';
         }else{
             $auditorStatus = null;
         }
@@ -162,6 +160,9 @@ class EditAlertComponent extends Component
             return;
         }elseif($this->province == 'Please select'){
             Toaster::error('Province is required!');
+            return;
+        }elseif($this->alertStatus == 'rejected' && $this->alertNote == ''){
+            Toaster::error('Alert note is required because you rejected this alert!');
             return;
         }
         return true;
