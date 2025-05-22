@@ -70,6 +70,11 @@ class AuditorDatabaseComponent extends Component
                 'auditorReason' => $this->alertReason,
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
+            DB::table('auditorlog')->insert([
+                'auditorId' => session('id'),
+                'alertId' => $alertId,
+                'created_at' => Carbon::now('Asia/Jakarta')
+            ]);
             redirect()->to(url()->previous());
         }
 
