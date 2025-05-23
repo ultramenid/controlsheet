@@ -129,6 +129,7 @@ class AuditorDatabaseComponent extends Component
                         ->when($this->yearAlert != 'all', function ($query) {
                             return $query->whereYear('detectionDate', $this->yearAlert);
                         })
+                        ->where('isActive', 1)
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

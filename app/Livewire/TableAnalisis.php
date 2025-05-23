@@ -66,6 +66,7 @@ class TableAnalisis extends Component
                         ->where('auditorStatus', '!=', 'rejected')
                         ->where('auditorStatus', '!=', 'duplicate')
                         ->where('alertId', 'like' , $sc)
+                        ->where('isActive', 1)
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

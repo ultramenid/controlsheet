@@ -17,6 +17,7 @@ class CheckUserAlertAudit extends Component
         ->where('auditorStatus', '!=', 'approved')
         ->Where('auditorStatus', '!=', 'duplicate')
         ->Where('auditorStatus', '!=', 'rejected')
+        ->where('isActive', 1)
         ->count();
     }
 

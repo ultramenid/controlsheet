@@ -24,6 +24,7 @@ class SumaryAlertAnalis extends Component
             COUNT(*) AS `TOTAL`
         ")
         ->where('analisId', session('id'))
+        ->where('isActive', 1)
         ->groupBy('auditorStatus')
         ->get();
 

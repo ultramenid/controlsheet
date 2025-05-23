@@ -41,6 +41,7 @@ class SummaryAlertCommponent extends Component
         ->when($this->yearAlert !== 'all', function ($query) {
             $query->whereYear('detectionDate', $this->yearAlert);
         })
+        ->where('isActive', 1)
         ->groupBy('auditorStatus')
         ->get();
 

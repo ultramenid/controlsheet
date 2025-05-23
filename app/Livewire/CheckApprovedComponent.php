@@ -11,7 +11,7 @@ class CheckApprovedComponent extends Component
     #[On('fix-alert')]
     #[On('echo:analis-data,UpdateAnalis')]
     public function checkAlert(){
-        return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '=', 'approved')->count();
+        return DB::table('alerts')->where('analisId', session('id'))->where('auditorStatus', '=', 'approved')->where('isActive', 1)->count();
     }
 
     public function render()

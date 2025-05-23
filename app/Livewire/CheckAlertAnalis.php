@@ -57,6 +57,7 @@ class CheckAlertAnalis extends Component
                 ->when($this->yearAlert !== 'all', function ($query) {
                     $query->whereYear('detectionDate', $this->yearAlert);
                 })
+                ->where('isActive', 1)
                 ->groupBy('alerts.analisId', 'users.name')
                 ->orderBy($this->dataField, $this->dataOrder)
                 ->get();

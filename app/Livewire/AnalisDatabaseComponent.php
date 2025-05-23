@@ -62,6 +62,7 @@ class AnalisDatabaseComponent extends Component
                         ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at')
                         ->where('analisId', session('id'))
                         ->where('alertId', 'like' , $sc)
+                        ->where('isActive', 1)
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {
