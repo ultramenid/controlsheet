@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Events\UpdateAnalis;
+use App\Events\UpdateAuditor;
 use App\Exports\ValidatorExport;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Masmerise\Toaster\Toaster;
 
 class AlertAnalisComponent extends Component
 {
@@ -41,9 +43,21 @@ class AlertAnalisComponent extends Component
         $this->deleter = true;
     }
     public function deleting($alertId){
-        DB::table('alerts')->where('alertId', $alertId)->delete();
+        DB::table('alerts')
+        ->where('alertId', $alertId)
+        ->update(['isActive' => 0]);
+
+        DB::table('auditorlog')->insert([
+                'auditorId' => session('id'),
+                'alertId' => $alertId,
+                'ngapain' => 'deleting',
+                'created_at' => Carbon::now('Asia/Jakarta')
+        ]);
         $this->dispatch('alert-deleted');
+        Toaster::success('Success deleting Alert');
         $this->closeDelete();
+        event(new UpdateAnalis);
+        event(new UpdateAuditor);
     }
 
     public function mount($id)
@@ -108,6 +122,7 @@ class AlertAnalisComponent extends Component
             DB::table('auditorlog')->insert([
                 'auditorId' => session('id'),
                 'alertId' => $alertId,
+                'ngapain' => 'auditing',
                 'created_at' => Carbon::now('Asia/Jakarta')
             ]);
             redirect()->to(url()->previous());

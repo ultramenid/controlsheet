@@ -43,7 +43,16 @@ class AuditorDatabaseComponent extends Component
         $this->deleter = true;
     }
     public function deleting($alertId){
-        DB::table('alerts')->where('alertId', $alertId)->delete();
+        DB::table('alerts')
+        ->where('alertId', $alertId)
+        ->update(['isActive' => 0]);
+
+        DB::table('auditorlog')->insert([
+                'auditorId' => session('id'),
+                'alertId' => $alertId,
+                'ngapain' => 'deleting',
+                'created_at' => Carbon::now('Asia/Jakarta')
+        ]);
         Toaster::success('Success deleting Alert');
         $this->closeDelete();
         event(new UpdateAnalis);
@@ -73,6 +82,7 @@ class AuditorDatabaseComponent extends Component
             DB::table('auditorlog')->insert([
                 'auditorId' => session('id'),
                 'alertId' => $alertId,
+                'ngapain' => 'auditing',
                 'created_at' => Carbon::now('Asia/Jakarta')
             ]);
             redirect()->to(url()->previous());
