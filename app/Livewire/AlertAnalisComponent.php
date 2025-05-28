@@ -151,4 +151,15 @@ class AlertAnalisComponent extends Component
         $analisName = $this->getAnalisName($this->analisId);
         return view('livewire.alert-analis-component', compact('databases', 'analisName'));
     }
+
+    public function manualValidation(){
+        if($this->alertStatus == ''){
+            Toaster::error('Alert status is required!');
+            return;
+        }elseif($this->alertReason == '' and $this->alertStatus != 'approved'){
+            Toaster::error('Alert reason is required!');
+            return;
+        }
+        return true;
+    }
 }
