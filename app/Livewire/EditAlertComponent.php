@@ -14,7 +14,7 @@ class EditAlertComponent extends Component
 {
     public $alertId, $alertStatus, $detectionDate, $observation, $alertNote;
     public $chooseRegion = '', $chooseProvince = '';
-    public $region = 'Please select', $province = 'Please select', $idAlert;
+    public $region = 'Please select', $province = 'Please select', $idAlert, $platformStatus ;
 
     public function getData(){
         return  DB::table('alerts')->where('alertId', $this->idAlert)->first();
@@ -28,6 +28,7 @@ class EditAlertComponent extends Component
         $this->alertNote = $this->getData()->alertNote;
         $this->region = $this->getData()->region;
         $this->province = $this->getData()->province;
+        $this->platformStatus = $this->getData()->platformStatus;
     }
     public function getRegions(){
         try {
@@ -136,6 +137,7 @@ class EditAlertComponent extends Component
                 'region' => $this->region,
                 'province' => $this->province,
                 'auditorStatus' => $this->checkAlertStatus(),
+                'platformStatus' => $this->platformStatus,
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
             redirect()->to('/alerts');

@@ -74,6 +74,25 @@
         </div>
     </div>
 
+    <div class="mt-4 flex gap-4 sm:flex-row flex-col ">
+        <div class="w-full">
+            <label class="w-full"  >
+                <div class="relative flex w-full flex-col  text-neutral-600 dark:text-neutral-300">
+                    <label for="os" class="w-fit pl-0.5 text-gray-700 mb-1 font-semibold">Platform Status</label>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-9 size-5">
+                        <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                    <select wire:ignore wire:model='platformStatus' class="w-full appearance-none text-black  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
+                        <option >Please select</option>
+                        <option value="sccon">Sccon</option>
+                        <option value="workspace">Workspace</option>
+                    </select>
+                </div>
+            </label>
+        </div>
+
+    </div>
+
     <div class="w-full  border-gray-300  mb-6 mt-6">
         <h1 class="text-gray-700 ">Note</h1>
         <div class="w-full  border-transparent focus:border-transparent focus:ring-0 "

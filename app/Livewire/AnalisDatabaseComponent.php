@@ -15,8 +15,16 @@ class AnalisDatabaseComponent extends Component
     public $isReason = false;
     public $search = '';
     public $alertId, $alertStatus, $alertReason;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $yearAlert;
 
+     public function mount(){
+        $this->yearAlert = session('yearAlert');
+    }
+
+    public function updatedYearAlert($value){
+        session(['yearAlert' => $value]);
+        $this->resetPage();
+    }
     public function sortingField($field){
         $this->dataField = $field;
         $this->dataOrder = $this->dataOrder == 'asc' ? 'desc' : 'asc';
@@ -63,6 +71,9 @@ class AnalisDatabaseComponent extends Component
                         ->where('analisId', session('id'))
                         ->where('alertId', 'like' , $sc)
                         ->where('isActive', 1)
+                        ->when($this->yearAlert != 'all', function ($query) {
+                            return $query->whereYear('detectionDate', $this->yearAlert);
+                        })
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

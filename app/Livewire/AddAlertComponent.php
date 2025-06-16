@@ -129,6 +129,7 @@ class AddAlertComponent extends Component
                 'province' => $this->province,
                 'auditorStatus' => $this->checkAlertStatus(),
                 'isActive' => 1,
+                'platformStatus' => 'sccon',
                 'created_at' => Carbon::now('Asia/Jakarta')
             ]);
             redirect()->to('/dashboard');

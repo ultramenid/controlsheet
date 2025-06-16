@@ -16,6 +16,7 @@ class TableAnalisis extends Component
     public $search = '';
     public $alertId, $alertStatus, $alertReason;
     public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10;
+    public $yearAlert;
 
     public function sortingField($field){
         $this->dataField = $field;
@@ -54,6 +55,17 @@ class TableAnalisis extends Component
         $this->resetPage();
     }
 
+
+    public function mount(){
+        $this->yearAlert = Carbon::now()->format('Y');
+    }
+
+    #[On('filterYear')]
+    public function updateData($year)
+    {
+        $this->yearAlert = $year;
+    }
+
     #[On('echo:analis-data,UpdateAnalis')]
     public function getAlerts(){
         $sc = '%' . $this->search . '%';
@@ -65,6 +77,9 @@ class TableAnalisis extends Component
                         ->where('auditorStatus', '!=', 'approved')
                         ->where('auditorStatus', '!=', 'rejected')
                         ->where('auditorStatus', '!=', 'duplicate')
+                        ->when($this->yearAlert !== 'all', function ($query) {
+                            $query->whereYear('detectionDate', $this->yearAlert);
+                        })
                         ->where('alertId', 'like' , $sc)
                         ->where('isActive', 1)
                         ->orderBy($this->dataField, $this->dataOrder)
