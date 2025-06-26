@@ -37,7 +37,6 @@ class SummaryAlertCommponent extends Component
             SUM(CASE WHEN region = 'Sumatra' THEN 1 ELSE 0 END) AS `Sumatra`,
             COUNT(*) AS `TOTAL`
         ")
-
         ->when($this->yearAlert !== 'all', function ($query) {
             $query->whereYear('detectionDate', $this->yearAlert);
         })

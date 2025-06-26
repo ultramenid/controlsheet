@@ -42,7 +42,6 @@ class SumaryAlertAnalis extends Component
         })
         ->where('isActive', 1)
         ->where('analisId', session('id'))
-        ->where('isActive', 1)
         ->groupBy('auditorStatus')
         ->get();
 
