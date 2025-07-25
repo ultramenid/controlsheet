@@ -17,6 +17,8 @@
               <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Rejected</th>
               <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Duplicate</th>
               <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Pending</th>
+              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Sccon</th>
+              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Workspace</th>
               <th wire:click='sortingField("total")' class="cursor-pointer border-b border-gray-300 px-4 py-2">TOTAL</th>
             </tr>
           </thead>
@@ -30,6 +32,8 @@
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->rejected}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->duplicate}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->pending}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->sccon}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->workspace}}</td>
                     <td class=" border-b border-gray-300 px-4 py-2">{{$item->total}}</td>
                 </tr>
                 @empty
