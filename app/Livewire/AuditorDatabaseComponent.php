@@ -45,7 +45,7 @@ class AuditorDatabaseComponent extends Component
     public function deleting($alertId){
         DB::table('alerts')
         ->where('alertId', $alertId)
-        ->update(['isActive' => 0]);
+        ->delete();
 
         DB::table('auditorlog')->insert([
                 'auditorId' => session('id'),
