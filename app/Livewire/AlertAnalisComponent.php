@@ -118,7 +118,6 @@ class AlertAnalisComponent extends Component
             DB::table('alerts')->where('alertId', $alertId)->update([
                 'auditorStatus' => $this->alertStatus,
                 'auditorReason' => $this->alertReason,
-                'platformStatus' => 'workspace',
                 'updated_at' => Carbon::now('Asia/Jakarta')
             ]);
             DB::table('auditorlog')->insert([
