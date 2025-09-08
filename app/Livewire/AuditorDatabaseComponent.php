@@ -16,7 +16,7 @@ class AuditorDatabaseComponent extends Component
     use WithPagination;
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 25, $searchId;
     public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
 
 
@@ -131,7 +131,7 @@ class AuditorDatabaseComponent extends Component
                         })
                         ->where('isActive', 1)
                         ->orderBy($this->dataField, $this->dataOrder)
-                        ->paginate($this->paginate);
+                        ->cursorPaginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
         }

@@ -35,7 +35,7 @@
     <div x-data="{ open: @entangle('deleter') }">
         @include('partials.deleterAlert')
     </div>
-    <div class="mt-4">
+    <div class="mt-4 mb-6">
         <table class="w-full divide-y divide-gray-200  rounded-sm  border border-gray-100">
             <thead class="text-xs">
                 <tr >
@@ -130,8 +130,11 @@
     </div>
 
     @if ($databases)
-    {{ $databases->links('livewire.pagination') }}
+    {{ $databases->links() }}
     @endif
+
+
+    </div>
 
     <script>
         let dateDropdown = document.getElementById('date-dropdown');
