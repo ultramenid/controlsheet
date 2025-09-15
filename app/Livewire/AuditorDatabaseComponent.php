@@ -155,10 +155,12 @@ class AuditorDatabaseComponent extends Component
     #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts()
     {
-        $sc = '%'.$this->searchId.'%';
+        // $sc = '%'.$this->searchId.'%';
         try {
             return DB::table('alerts')
-                ->where('alertId', '=', $this->searchId)
+                ->when(!empty($this->searchId), function ($query) {
+                    return $query->where('alertId', $this->searchId);
+                })
                 ->when($this->selectStatus === 'pending', function ($query) {
                     return $query->whereNull('auditorStatus');
                 })
