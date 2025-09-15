@@ -158,7 +158,7 @@ class AuditorDatabaseComponent extends Component
         $sc = '%'.$this->searchId.'%';
         try {
             return DB::table('alerts')
-                ->where('alertId', $this->searchId)
+                ->where('alertId', '=', $this->searchId)
                 ->when($this->selectStatus === 'pending', function ($query) {
                     return $query->whereNull('auditorStatus');
                 })
