@@ -69,7 +69,7 @@ class AnalisDatabaseComponent extends Component
             return  DB::table('alerts')
                         ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at')
                         ->where('analisId', session('id'))
-                        ->where('alertId', 'like' , $sc)
+                        ->where('alertId' , $sc)
                         ->where('isActive', 1)
                         ->when($this->yearAlert != 'all', function ($query) {
                             return $query->whereYear('detectionDate', $this->yearAlert);
