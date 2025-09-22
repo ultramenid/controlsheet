@@ -15,7 +15,7 @@ class checkLevel
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session('role_id') == 1){
+        if(session('role_id') != 0){
             return redirect('/dashboard');
         }
         return $next($request);

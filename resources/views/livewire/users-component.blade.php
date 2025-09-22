@@ -68,9 +68,11 @@
                             @case(0)
                                 <a class="rounded-sm px-2 py-1 bg-gray-400">Admin</a>
                                 @break
-
+                            @case(1)
+                                <a class="rounded-sm px-2 py-1 bg-gray-400">Auditor</a>
+                                @break
                             @default
-                                <a class="rounded-sm px-2 py-1 bg-gray-400">Analyst</a>
+                                <a class="rounded-sm px-2 py-1 bg-gray-400">Validator</a>
                         @endswitch
                     </td>
                     @if (session('role_id') == 0)

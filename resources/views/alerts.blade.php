@@ -5,11 +5,11 @@
     @include('partials.nav')
 
     <div class="max-w-6xl mx-auto px-7 py-4 mt-6">
-        @if (session('role_id') == 0)
+        @if (in_array(session('role_id'), [0,1]))
             <livewire:auditor-database-component />
         @endif
 
-        @if (session('role_id') == 1)
+        @if (session('role_id') == 2)
             <livewire:analis-database-component />
         @endif
 

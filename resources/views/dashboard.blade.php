@@ -13,9 +13,8 @@
             <livewire:check-alert-analis />
         @endif
 
-        @if (session('role_id') == 1)
+        @if (session('role_id') == 2)
             <livewire:filter-dashboard-component>
-
             <livewire:sumary-alert-analis />
             {{-- <livewire:check-user-alert-audit /> --}}
             {{-- <div class="flex justify-between items-center">

@@ -17,8 +17,8 @@
               <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Rejected</th>
               <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Duplicate</th>
               <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Pending</th>
-              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Sccon</th>
-              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Workspace</th>
+              <th class="cursor-pointer border-b border-gray-300 px-4 py-2">Sccon</th>
+              <th class="cursor-pointer border-b border-gray-300 px-4 py-2">Workspace</th>
               <th wire:click='sortingField("total")' class="cursor-pointer border-b border-gray-300 px-4 py-2">TOTAL</th>
             </tr>
           </thead>

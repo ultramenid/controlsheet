@@ -39,7 +39,8 @@
                     </svg>
                     <select wire:ignore wire:model='level' class="w-full appearance-none  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
                         <option selected>Please Select</option>
-                        <option value="1">Analyst</option>
+                        <option value="2">Validator</option>
+                        <option value="1">Auditor</option>
                         <option value="0">Admin</option>
 
                     </select>
