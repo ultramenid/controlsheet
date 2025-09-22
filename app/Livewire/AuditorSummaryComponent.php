@@ -4,6 +4,10 @@ namespace App\Livewire;
 
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+
+
 
 class AuditorSummaryComponent extends Component
 {
@@ -29,6 +33,23 @@ class AuditorSummaryComponent extends Component
             }
             $results[$row->auditorName][$row->d] = $row->total;
         }
+
+        $period = new \DatePeriod(
+            new \DateTime($this->startDate),
+            new \DateInterval('P1D'),
+            (new \DateTime($this->endDate))->modify('+1 day')
+        );
+        foreach ($period as $dt) { $allDates[] = $dt->format('Y-m-d'); }
+        // fill missing dates with 0
+        foreach ($results as &$row) {
+            foreach ($allDates as $d) {
+                if (!isset($row[$d])) {
+                    $row[$d] = 0;
+                }
+            }
+            ksort($row); // keep auditorName first, then dates in order
+        }
+        unset($row);
         return $results;
     }
 
