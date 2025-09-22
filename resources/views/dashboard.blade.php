@@ -10,6 +10,7 @@
         @if (session('role_id') == 0)
             <livewire:filter-dashboard-component>
             <livewire:summary-alert-commponent />
+            <livewire:auditor-summary-component>
             <livewire:check-alert-analis />
         @endif
 
