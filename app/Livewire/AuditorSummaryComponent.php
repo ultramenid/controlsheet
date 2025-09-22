@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-
-
+use Livewire\Attributes\On;
 
 class AuditorSummaryComponent extends Component
 {
@@ -18,6 +17,9 @@ class AuditorSummaryComponent extends Component
         $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->rangeAuditor = $this->startDate.' to '.$this->endDate;
     }
+
+    #[On('echo:analis-data,UpdateAnalis')]
+    #[On('echo:auditor-data,UpdateAuditor')]
     public function filter(){
         $rows = DB::table('auditorlog')
             ->join('users', 'users.id', '=', 'auditorlog.auditorId')
