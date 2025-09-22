@@ -52,7 +52,7 @@
                 {{-- Loop dynamic date columns --}}
                 @if (!empty($results))
                     @foreach (array_keys($results[array_key_first($results)]) as $key)
-                        @if ($key !== 'auditorName')
+                        @if ($key !== 'auditorName' and $key !== 'auditorId')
                             <th class="border-b border-gray-300 px-4 py-2 text-xs text-center whitespace-nowrap">
                                 {{ $key }}
                             </th>
@@ -66,12 +66,13 @@
                 <tr class="hover:bg-gray-50">
                     {{-- Sticky first column --}}
                     <td class="sticky left-0 bg-white border-b border-gray-300 px-4 py-2 text-xs z-10 whitespace-nowrap">
-                        {{ $row['auditorName'] }}
+                        <a href="{{ url('/auditor-alert/'.$row['auditorId']) }}">{{ $row['auditorName'] }}</a>
                     </td>
 
                     {{-- Show counts per date --}}
                     @foreach ($row as $key => $val)
-                        @if ($key !== 'auditorName')
+                        @if ($key !== 'auditorName' and $key !== 'auditorId')
+                            {{-- Display 0 if no data for that date --}}
                             <td class="border-b border-gray-300 px-4 py-2 text-xs text-center">
                                 {{ $val }}
                             </td>

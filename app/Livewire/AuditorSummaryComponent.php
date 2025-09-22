@@ -11,26 +11,35 @@ use Carbon\CarbonPeriod;
 
 class AuditorSummaryComponent extends Component
 {
-    public $startDate , $endDate , $rangeAuditor;
+    public $startDate, $endDate , $rangeAuditor;
 
+    public function mount(){
+        $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $this->rangeAuditor = $this->startDate.' to '.$this->endDate;
+    }
     public function filter(){
         $rows = DB::table('auditorlog')
             ->join('users', 'users.id', '=', 'auditorlog.auditorId')
             ->select(
                 'users.name as auditorName',
+                'users.id as auditorId',
                 DB::raw("DATE(auditorlog.created_at) as d"),
                 DB::raw("COUNT(auditorlog.alertId) as total")
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
             ->where('ngapain', '=' ,'auditing')
-            ->groupBy('users.name', 'd')
+            ->groupBy( 'users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
             ->get();
 
         $results = [];
 
         foreach ($rows as $row) {
+
             if (!isset($results[$row->auditorName])) {
                 $results[$row->auditorName]['auditorName'] = $row->auditorName;
+                $results[$row->auditorName]['auditorId'] = $row->auditorId;
+
             }
             $results[$row->auditorName][$row->d] = $row->total;
         }
