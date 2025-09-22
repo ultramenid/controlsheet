@@ -65,7 +65,7 @@
                                 {{ $row['auditorName'] }}
                             </td>
 
-                            {{-- Show counts per date --}}
+                            <div class="w-full overflow-x-auto">
                             @foreach ($row as $key => $val)
                                 @if ($key !== 'auditorName')
                                     <td class="border-b border-gray-300 px-4 py-2 text-xs text-center">
@@ -73,6 +73,9 @@
                                     </td>
                                 @endif
                             @endforeach
+                            </div>
+                            {{-- Show counts per date --}}
+
                         </tr>
                     @endforeach
                 </tbody>
