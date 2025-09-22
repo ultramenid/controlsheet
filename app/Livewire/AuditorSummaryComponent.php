@@ -22,6 +22,7 @@ class AuditorSummaryComponent extends Component
                 DB::raw("COUNT(auditorlog.alertId) as total")
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
+            ->where('ngapain', '=' ,'auditing')
             ->groupBy('users.name', 'd')
             ->get();
 
