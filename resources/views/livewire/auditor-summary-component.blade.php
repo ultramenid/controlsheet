@@ -40,46 +40,50 @@
 
     <div class="max-w-7xl mx-auto">
         <div class="">
-            <table class="w-full border-collapse border-b border-gray-300">
-                <thead class="bg-gray-100 text-gray-700">
-                    <tr>
-                        {{-- First column --}}
-                        <th class="border-b border-gray-300 px-4 py-2 text-xs text-left">Auditor</th>
+            <div class="w-full overflow-x-auto">
+    <table class="w-full min-w-max border-collapse border-b border-gray-300">
+        <thead class="bg-gray-100 text-gray-700">
+            <tr>
+                {{-- Sticky first column --}}
+                <th class="sticky left-0 bg-gray-100 border-b border-gray-300 px-4 py-2 text-xs text-left z-10">
+                    Auditor
+                </th>
 
-                        {{-- Loop dynamic date columns from the first row --}}
-                        @if (!empty($results))
-                            @foreach (array_keys($results[array_key_first($results)]) as $key)
-                                @if ($key !== 'auditorName')
-                                    <th class="border-b border-gray-300 px-4 py-2 text-xs text-center">
-                                        {{ $key }}
-                                    </th>
-                                @endif
-                            @endforeach
+                {{-- Loop dynamic date columns --}}
+                @if (!empty($results))
+                    @foreach (array_keys($results[array_key_first($results)]) as $key)
+                        @if ($key !== 'auditorName')
+                            <th class="border-b border-gray-300 px-4 py-2 text-xs text-center whitespace-nowrap">
+                                {{ $key }}
+                            </th>
                         @endif
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($results as $row)
-                        <tr class="hover:bg-gray-50">
-                            <td class="border-b border-gray-300 px-4 py-2 text-xs">
-                                {{ $row['auditorName'] }}
-                            </td>
-
-                            <div class="w-full overflow-x-auto">
-                            @foreach ($row as $key => $val)
-                                @if ($key !== 'auditorName')
-                                    <td class="border-b border-gray-300 px-4 py-2 text-xs text-center">
-                                        {{ $val }}
-                                    </td>
-                                @endif
-                            @endforeach
-                            </div>
-                            {{-- Show counts per date --}}
-
-                        </tr>
                     @endforeach
-                </tbody>
-            </table>
+                @endif
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($results as $row)
+                <tr class="hover:bg-gray-50">
+                    {{-- Sticky first column --}}
+                    <td class="sticky left-0 bg-white border-b border-gray-300 px-4 py-2 text-xs z-10 whitespace-nowrap">
+                        {{ $row['auditorName'] }}
+                    </td>
+
+                    {{-- Show counts per date --}}
+                    @foreach ($row as $key => $val)
+                        @if ($key !== 'auditorName')
+                            <td class="border-b border-gray-300 px-4 py-2 text-xs text-center">
+                                {{ $val }}
+                            </td>
+                        @endif
+                    @endforeach
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+
 
         </div>
     </div>
