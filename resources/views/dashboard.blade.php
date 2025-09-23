@@ -14,6 +14,10 @@
             <livewire:check-alert-analis />
         @endif
 
+        @if (session('role_id') == 1)
+            <livewire:auditor-task-component />
+        @endif
+
         @if (session('role_id') == 2)
             <livewire:filter-dashboard-component>
             <livewire:sumary-alert-analis />
