@@ -20,6 +20,13 @@ class AlertController extends Controller
 
     }
 
+    public function auditorAlert($id){
+        $id = $id;
+        $title = 'Auditor alert - Mapbiomas Indonesia';
+        $nav = 'alerts';
+        return view('auditor-alert', compact('id', 'title', 'nav'));
+    }
+
     public function auditing($id){
         $id = $id;
         $title = 'Auditing alert - Mapbiomas Indonesia';

@@ -26,7 +26,7 @@
         @endif
     </div>
 
-    @if (session('role_id') == 1)
+    @if (session('role_id') == 2)
     <div>
         <div class="fixed z-30 sm:bottom-10  bottom-6 right-12 cursor-pointer " >
             <a href="{{url('/addalert')}}">
