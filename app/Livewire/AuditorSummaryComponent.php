@@ -10,11 +10,11 @@ use Livewire\Attributes\On;
 
 class AuditorSummaryComponent extends Component
 {
-    public $startDate, $endDate , $rangeAuditor;
+    public $startDate = '2025-05-20', $endDate = '2025-05-23', $rangeAuditor;
 
     public function mount(){
-        $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
-        $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        // $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        // $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->rangeAuditor = $this->startDate.' to '.$this->endDate;
     }
 
@@ -31,17 +31,15 @@ class AuditorSummaryComponent extends Component
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
             ->where('ngapain', '=' ,'auditing')
-            ->groupBy( 'users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
+            ->groupBy('users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
             ->get();
 
         $results = [];
 
         foreach ($rows as $row) {
-
             if (!isset($results[$row->auditorName])) {
                 $results[$row->auditorName]['auditorName'] = $row->auditorName;
-                $results[$row->auditorName]['auditorId'] = $row->auditorId;
-
+                $results[$row->auditorName]['auditorId']   = $row->auditorId;
             }
             $results[$row->auditorName][$row->d] = $row->total;
         }
@@ -51,18 +49,42 @@ class AuditorSummaryComponent extends Component
             new \DateInterval('P1D'),
             (new \DateTime($this->endDate))->modify('+1 day')
         );
-        foreach ($period as $dt) { $allDates[] = $dt->format('Y-m-d'); }
-        // fill missing dates with 0
+
+        foreach ($period as $dt) {
+            $allDates[] = $dt->format('Y-m-d');
+        }
+
+        // fill missing dates with 0 + add Total
         foreach ($results as &$row) {
+            $total = 0;
+
             foreach ($allDates as $d) {
                 if (!isset($row[$d])) {
                     $row[$d] = 0;
                 }
+                $total += $row[$d];
             }
-            ksort($row); // keep auditorName first, then dates in order
+
+            $row['Total'] = $total;
+
+            // reorder keys: auditorName, auditorId, dates..., Total
+            $ordered = [
+                'auditorName' => $row['auditorName'],
+                'auditorId'   => $row['auditorId']
+            ];
+
+            foreach ($allDates as $d) {
+                $ordered[$d] = $row[$d];
+            }
+
+            $ordered['Total'] = $total;
+
+            $row = $ordered;
         }
         unset($row);
+
         return $results;
+
     }
 
 
