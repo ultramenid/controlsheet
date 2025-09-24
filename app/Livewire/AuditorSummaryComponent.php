@@ -28,7 +28,13 @@ class AuditorSummaryComponent extends Component
             ->distinct()
             ->first();
 
-        Toaster::success('Alert ID '.$this->alertCode.' audited by '.$find->auditorName);
+        try {
+            Toaster::success('Alert ID '.$this->alertCode.' audited by '.$find->auditorName);
+        } catch (\Exception $e) {
+            Toaster::error('Alert ID '.$this->alertCode.' not found in auditor log');
+            return;
+        }
+
     }
 
     #[On('echo:analis-data,UpdateAnalis')]
