@@ -10,11 +10,11 @@ use Livewire\Attributes\On;
 
 class AuditorSummaryComponent extends Component
 {
-    public $startDate = '2025-05-20', $endDate = '2025-05-23', $rangeAuditor;
+    public $startDate , $endDate , $rangeAuditor;
 
     public function mount(){
-        // $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
-        // $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
+        $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->rangeAuditor = $this->startDate.' to '.$this->endDate;
     }
 
