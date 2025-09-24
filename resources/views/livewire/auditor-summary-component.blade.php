@@ -32,9 +32,7 @@
      "
         ">
             <input id="rangeAuditor" type="text" class="bg-gray-100  text-gray-00   w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='rangeAuditor' placeholder="Please select">
-            <button wire:click='filter' class="bg-black py-2 px-4 text-white sm:w-32 w-full cursor-pointer h-10">
-            Submit
-        </button>
+
         </div>
     </div>
 
