@@ -69,7 +69,7 @@
                         @foreach ($results as $row)
                             <tr class="hover:bg-gray-50">
                                 {{-- Sticky first column --}}
-                                <td class="sticky left-0 bg-white border-b border-gray-300 px-4 py-2 text-xs z-10 whitespace-nowrap">
+                                <td class="sticky left-0 bg-gray-50 border-b border-gray-300 px-4 py-2 text-xs z-10 whitespace-nowrap">
                                     <a href="{{ url('/auditor-alert/'.$row['auditorId']) }}">{{ $row['auditorName'] }}</a>
                                 </td>
 
@@ -83,7 +83,7 @@
                                 @endforeach
 
                                 {{-- Sticky Total column --}}
-                                <td class="sticky right-0 bg-white border-b border-gray-300 px-4 py-2 text-xs text-center z-10 font-semibold">
+                                <td class="sticky right-0 bg-gray-50 border-b border-gray-300 px-4 py-2 text-xs text-center z-10 font-semibold">
                                     {{ $row['Total'] }}
                                 </td>
                             </tr>
