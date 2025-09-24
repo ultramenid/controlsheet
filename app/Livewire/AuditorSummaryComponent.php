@@ -7,15 +7,28 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Livewire\Attributes\On;
+use Masmerise\Toaster\Toaster;
 
 class AuditorSummaryComponent extends Component
 {
-    public $startDate , $endDate , $rangeAuditor;
+    public $startDate , $endDate , $rangeAuditor, $alertCode;
 
     public function mount(){
         $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->rangeAuditor = $this->startDate.' to '.$this->endDate;
+    }
+
+
+    public function find(){
+        $find = DB::table('auditorlog')
+            ->where('alertId', $this->alertCode)
+            ->join('users', 'users.id', '=', 'auditorlog.auditorId')
+            ->select('users.name as auditorName', 'users.id as auditorId')
+            ->distinct()
+            ->first();
+
+        Toaster::success('Alert ID '.$this->alertCode.' audited by '.$find->auditorName);
     }
 
     #[On('echo:analis-data,UpdateAnalis')]

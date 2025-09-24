@@ -1,5 +1,6 @@
 <div class="py-6 px-4 border border-gray-100 z-20 relative  bg-white mt-4">
-    <div class="text-sm mb-6">
+    <div class="flex gap-6 mb-6">
+        <div class="text-sm ">
         <a>Alert by Auditor</a>
         <div class="w-full mt-1 flex gap-2" wire:ignore x-init="
         flatpickr('#rangeAuditor', {
@@ -31,10 +32,25 @@
         });
      "
         ">
-            <input id="rangeAuditor" type="text" class="bg-gray-100  text-gray-00   w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='rangeAuditor' placeholder="Please select">
+        <input id="rangeAuditor" type="text" class="bg-gray-100  text-gray-00   w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='rangeAuditor' placeholder="Please select">
 
         </div>
     </div>
+    <div class="flex gap-2 mb-6 ">
+        <div class="flex flex-col">
+            <a class="text-sm">Find who is auditing the alert</a>
+            <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCode' placeholder="type alert code">
+        </div>
+        <div class="flex flex-col">
+            <a>&nbsp;</a>
+            <button wire:click='find' class="bg-black py-1 px-4  text-white sm:w-32 w-full cursor-pointer h-8">
+            Find
+        </button>
+        </div>
+    </div>
+
+    </div>
+
 
     <div class="max-w-7xl mx-auto">
         <div class="">

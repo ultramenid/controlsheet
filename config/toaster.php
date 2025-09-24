@@ -14,7 +14,7 @@ return [
      *
      * Supported: "bottom", "middle" or "top"
      */
-    'alignment' => 'top',
+    'alignment' => 'middle',
 
     /**
      * Allow users to close toast messages prematurely.
