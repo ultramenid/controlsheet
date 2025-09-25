@@ -25,7 +25,7 @@ class AuditorSummaryComponent extends Component
             ->where('alertId', $this->alertCode)
             ->join('users', 'users.id', '=', 'auditorlog.auditorId')
             ->select('users.name as auditorName', 'users.id as auditorId')
-            ->distinct()
+            ->orderBy('auditorlog.created_at', 'desc')
             ->first();
 
         try {
