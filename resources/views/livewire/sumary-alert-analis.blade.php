@@ -20,7 +20,7 @@
           </thead>
           <tbody class="text-xs">
             @foreach ($alerts as $item )
-                <tr class="border-t">
+                <tr class="border-t hover:bg-gray-50">
                     <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['auditorStatus']}}</td>
                     <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Balinusatenggara']}}</td>
                     <td class="@if($item['auditorStatus'] === 'Grand Total') bg-gray-100 @endif border-b border-gray-300 px-4 py-2">{{$item['Java']}}</td>
