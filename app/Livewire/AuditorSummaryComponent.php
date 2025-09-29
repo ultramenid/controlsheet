@@ -37,7 +37,20 @@ class AuditorSummaryComponent extends Component
 
     }
 
+    public function getStatus($alertId){
+        // if the auditorStatus == null return 'Pending'
+        $status = DB::table('alerts')
+            ->where('alertId', $alertId)
+            ->select('auditorStatus')
+            ->first();
+        if($status->auditorStatus == null){
+            return 'pending';
+        }else{
+            return $status->auditorStatus ;
+        }
+    }
     public function findValidator(){
+        // dd($this->getStatus($this->alertCodeValidator));
         $find = DB::table('alerts')
             ->where('alertId', $this->alertCodeValidator)
             ->join('users', 'users.id', '=', 'alerts.analisId')
@@ -45,9 +58,9 @@ class AuditorSummaryComponent extends Component
             ->first();
 
         try {
-            Toaster::success('Alert ID '.$this->alertCode.' audited by '.$find->auditorName);
+            Toaster::success('Alert ID '.$this->alertCode.' validated by '.$find->auditorName. ' with status '.$this->getStatus($this->alertCodeValidator));
         } catch (\Exception $e) {
-            Toaster::error('Alert ID '.$this->alertCode.' not found in auditor log');
+            Toaster::error('Alert ID '.$this->alertCode.' not found in alert database');
             return;
         }
 
