@@ -1,53 +1,65 @@
 <div class="py-6 px-4 border border-gray-100 z-20 relative  bg-white mt-4">
-    <div class="flex gap-6 mb-6">
+    <div class="flex sm:flex-row flex-col sm:gap-6 gap-2 mb-6">
         <div class="text-sm ">
-        <a>Alert by Auditor</a>
-        <div class="w-full mt-1 flex gap-2" wire:ignore x-init="
-        flatpickr('#rangeAuditor', {
-            mode:'range',
-            dateFormat: 'Y-m-d',
-            {{-- locale: 'id', // ✅ Indonesian calendar labels, optional --}}
-            onChange: function(selectedDates) {
-                if (selectedDates.length === 2) {
-                    // Jakarta timezone formatter
-                    let options = { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' };
+            <a>Alert by Auditor</a>
+            <div class="w-full mt-1 flex gap-2" wire:ignore x-init="
+            flatpickr('#rangeAuditor', {
+                mode:'range',
+                dateFormat: 'Y-m-d',
+                {{-- locale: 'id', // ✅ Indonesian calendar labels, optional --}}
+                onChange: function(selectedDates) {
+                    if (selectedDates.length === 2) {
+                        // Jakarta timezone formatter
+                        let options = { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit' };
 
-                    function formatDate(d) {
-                        let parts = new Intl.DateTimeFormat('id-ID', options).formatToParts(d);
-                        let y = parts.find(p => p.type === 'year').value;
-                        let m = parts.find(p => p.type === 'month').value;
-                        let day = parts.find(p => p.type === 'day').value;
-                        return `${y}-${m}-${day}`;
+                        function formatDate(d) {
+                            let parts = new Intl.DateTimeFormat('id-ID', options).formatToParts(d);
+                            let y = parts.find(p => p.type === 'year').value;
+                            let m = parts.find(p => p.type === 'month').value;
+                            let day = parts.find(p => p.type === 'day').value;
+                            return `${y}-${m}-${day}`;
+                        }
+
+                        let startDate = formatDate(selectedDates[0]);
+                        let endDate   = formatDate(selectedDates[1]);
+
+                        console.log(['Start:', startDate, 'End:', endDate]);
+
+                        $wire.set('startDate', startDate);
+                        $wire.set('endDate', endDate);
                     }
-
-                    let startDate = formatDate(selectedDates[0]);
-                    let endDate   = formatDate(selectedDates[1]);
-
-                    console.log(['Start:', startDate, 'End:', endDate]);
-
-                    $wire.set('startDate', startDate);
-                    $wire.set('endDate', endDate);
                 }
-            }
-        });
-     "
-        ">
-        <input id="rangeAuditor" type="text" class="bg-gray-100  text-gray-00   w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='rangeAuditor' placeholder="Please select">
+            });
+        "
+            ">
+            <input id="rangeAuditor" type="text" class="bg-gray-100  text-gray-00   w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='rangeAuditor' placeholder="Please select">
 
         </div>
-    </div>
-    <div class="flex gap-2 mb-6 ">
-        <div class="flex flex-col">
-            <a class="text-sm">Find who is auditing the alert</a>
-            <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCode' placeholder="type alert ID">
         </div>
-        <div class="flex flex-col">
-            <a>&nbsp;</a>
-            <button wire:click='find' class="bg-black py-1 px-4  text-white sm:w-32 w-full cursor-pointer h-8">
-            Find
-        </button>
+        <div class="flex gap-2 mb-6 ">
+            <div class="flex flex-col">
+                <a class="text-sm">Find who is <b>auditing</b> the alert</a>
+                <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCode' placeholder="type alert ID">
+            </div>
+            <div class="flex flex-col">
+                <a>&nbsp;</a>
+                <button wire:click='find' class="bg-black py-1 px-4  text-white sm:w-32 w-full cursor-pointer h-8">
+                    Find
+                </button>
+            </div>
         </div>
-    </div>
+        <div class="flex gap-2 mb-6 ">
+            <div class="flex flex-col">
+                <a class="text-sm">Find who is <b>validating</b> the alert</a>
+                <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCodeValidator' placeholder="type alert ID">
+            </div>
+            <div class="flex flex-col">
+                <a>&nbsp;</a>
+                <button wire:click='findValidator' class="bg-black py-1 px-4  text-white sm:w-32 w-full cursor-pointer h-8">
+                    Find
+                </button>
+            </div>
+        </div>
 
     </div>
 

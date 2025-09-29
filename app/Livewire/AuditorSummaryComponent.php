@@ -11,7 +11,7 @@ use Masmerise\Toaster\Toaster;
 
 class AuditorSummaryComponent extends Component
 {
-    public $startDate , $endDate , $rangeAuditor, $alertCode;
+    public $startDate , $endDate , $rangeAuditor, $alertCode, $alertCodeValidator;
 
     public function mount(){
         $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
@@ -26,6 +26,22 @@ class AuditorSummaryComponent extends Component
             ->join('users', 'users.id', '=', 'auditorlog.auditorId')
             ->select('users.name as auditorName', 'users.id as auditorId')
             ->orderBy('auditorlog.created_at', 'desc')
+            ->first();
+
+        try {
+            Toaster::success('Alert ID '.$this->alertCode.' audited by '.$find->auditorName);
+        } catch (\Exception $e) {
+            Toaster::error('Alert ID '.$this->alertCode.' not found in auditor log');
+            return;
+        }
+
+    }
+
+    public function findValidator(){
+        $find = DB::table('alerts')
+            ->where('alertId', $this->alertCodeValidator)
+            ->join('users', 'users.id', '=', 'alerts.analisId')
+            ->select('users.name as auditorName', 'users.id as auditorId')
             ->first();
 
         try {
