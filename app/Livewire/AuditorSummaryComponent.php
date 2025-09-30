@@ -58,9 +58,9 @@ class AuditorSummaryComponent extends Component
             ->first();
 
         try {
-            Toaster::success('Alert ID '.$this->alertCode.' validated by '.$find->auditorName. ' with status '.$this->getStatus($this->alertCodeValidator));
+            Toaster::success('Alert ID '.$this->alertCodeValidator.' validated by '.$find->auditorName. ' with status '.$this->getStatus($this->alertCodeValidator));
         } catch (\Exception $e) {
-            Toaster::error('Alert ID '.$this->alertCode.' not found in alert database');
+            Toaster::error('Alert ID '.$this->alertCodeValidator.' not found in alert database');
             return;
         }
 
