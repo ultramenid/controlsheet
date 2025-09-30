@@ -39,7 +39,7 @@
         <div class="flex gap-2 mb-6 ">
             <div class="flex flex-col">
                 <a class="text-sm">Find who is <b>auditing</b> the alert</a>
-                <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCode' placeholder="type alert ID">
+                <input wire:keydown.enter="find"  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCode' placeholder="type alert ID">
             </div>
             <div class="flex flex-col">
                 <a>&nbsp;</a>
@@ -51,7 +51,7 @@
         <div class="flex gap-2 mb-6 ">
             <div class="flex flex-col">
                 <a class="text-sm">Find who is <b>validating</b> the alert</a>
-                <input  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCodeValidator' placeholder="type alert ID">
+                <input wire:keydown.enter="findValidator"  type="text" class="bg-gray-100  text-gray-00 mt-1  w-52 border border-gray-200  py-2 px-4 focus:outline-none  text-xs"  wire:model.defer='alertCodeValidator' placeholder="type alert ID">
             </div>
             <div class="flex flex-col">
                 <a>&nbsp;</a>
