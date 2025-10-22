@@ -14,7 +14,7 @@
                 </div>
                 <div class=" flex sm:flex-row flex-col gap-6">
                     {{-- left side --}}
-                    <div class="sm:w-6/12 w-full h-[650px] overflow-y-auto">
+                    <div class="sm:w-6/12 w-full h-[600px] overflow-y-auto">
                         <div class="flex flex-col  mb-3 mt-4  ">
                              <a class="text-sm text-left prose"><b>Note</b>: {!! $alertNote !!} </a>
                         </div>
