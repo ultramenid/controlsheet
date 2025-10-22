@@ -13,11 +13,13 @@
                     <a class="text-xl">{{$alertId}} - {{$observation}} - {{$analis}}</a>
                 </div>
                 <div class=" flex sm:flex-row flex-col gap-6">
-                    <div class="sm:w-6/12 w-full overflow-y-auto h-full">
+                    {{-- left side --}}
+                    <div class="sm:w-6/12 w-full h-[600px] overflow-y-auto">
                         <div class="flex flex-col  mb-3 mt-4  ">
                              <a class="text-sm text-left prose"><b>Note</b>: {!! $alertNote !!} </a>
                         </div>
                     </div>
+                    {{-- right side --}}
                     <div class="sm:w-6/12 w-full">
                         <label class="w-full"  >
                             <div class="relative flex w-full flex-col  text-neutral-600 dark:text-neutral-300">
