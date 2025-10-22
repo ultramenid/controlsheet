@@ -14,13 +14,13 @@
                 </div>
                 <div class=" flex sm:flex-row flex-col gap-6">
                     {{-- left side --}}
-                    <div class="sm:w-6/12 w-full h-[650px]   overflow-y-auto">
+                    <div class="sm:w-6/12 w-full h-[650px] overflow-y-auto">
                         <div class="flex flex-col  mb-3 mt-4  ">
                              <a class="text-sm text-left prose"><b>Note</b>: {!! $alertNote !!} </a>
                         </div>
                     </div>
                     {{-- right side --}}
-                    <div class="sm:w-6/12 w-full">
+                    <div class="sm:w-6/12 w-full h-[650px]  ">
                         <label class="w-full"  >
                             <div class="relative flex w-full flex-col  text-neutral-600 dark:text-neutral-300">
                                 <label for="os" class="w-fit pl-0.5 text-gray-700 mb-1 text-sm">Alert Status</label>
