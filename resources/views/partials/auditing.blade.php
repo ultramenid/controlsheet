@@ -1,6 +1,6 @@
 <div>
     @if ($isAudit)
-    <div class="fixed z-50 inset-0 overflow-y-auto ease-out duration-400"  x-show="open" x-transition x-cloak style="display: none !important">
+    <div class="fixed z-50 inset-0  ease-out duration-400"  x-show="open" x-transition x-cloak style="display: none !important">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity">
                 <div class="absolute inset-0 bg-gray-100 dark:bg-gray-900 opacity-50"></div>
@@ -13,7 +13,7 @@
                     <a class="text-xl">{{$alertId}} - {{$observation}} - {{$analis}}</a>
                 </div>
                 <div class=" flex sm:flex-row flex-col gap-6">
-                    <div class="sm:w-6/12 w-full">
+                    <div class="sm:w-6/12 w-full overflow-y-auto">
                         <div class="flex flex-col  mb-3 mt-4  ">
                              <a class="text-sm text-left prose"><b>Note</b>: {!! $alertNote !!} </a>
                         </div>
