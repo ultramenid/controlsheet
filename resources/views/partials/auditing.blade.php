@@ -8,7 +8,7 @@
             <!-- This element is to trick the browser into centering the modal contents. -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
-            <div class=" px-4 py-6 inline-block align-bottom h-[650px]  rounded-sm bg-white text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl w-full " role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            <div class=" px-4 py-6 inline-block align-bottom h-[650px] rounded-sm bg-white text-left  shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl w-full " role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                 <div class="w-full">
                     <a class="text-xl">{{$alertId}} - {{$observation}} - {{$analis}}</a>
                 </div>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     {{-- right side --}}
-                    <div class="sm:w-6/12 w-full h-[650px]  ">
+                    <div class="sm:w-6/12 w-full  ">
                         <label class="w-full"  >
                             <div class="relative flex w-full flex-col  text-neutral-600 dark:text-neutral-300">
                                 <label for="os" class="w-fit pl-0.5 text-gray-700 mb-1 text-sm">Alert Status</label>
