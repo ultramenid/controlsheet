@@ -18,8 +18,6 @@ class AuditorSummaryComponent extends Component
     public string $dataField = 'total';   // users.name | d | total | users.id
     public string $dataOrder = 'desc';    // asc | desc
 
-    // (optional) persist via query string
-    protected $queryString = ['dataField', 'dataOrder'];
 
     // Allowlist to keep it safe
     private array $allowedFields = ['users.name', 'users.id', 'd', 'total'];
