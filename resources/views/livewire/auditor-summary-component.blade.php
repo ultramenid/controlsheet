@@ -82,7 +82,7 @@
                                     @endif
                                 @endforeach
                                 {{-- Sticky Total column --}}
-                                <th class="sticky right-0 ... cursor-pointer select-none text-xs"
+                                <th class="sticky right-0 bg-gray-100 border-b border-gray-300 px-4 py-2 text-xs text-center z-10 font-semibold cursor-pointer select-none"
                                     wire:click="sortBy('Total')">
                                 Total
                                 @if ($dataField === 'Total')
