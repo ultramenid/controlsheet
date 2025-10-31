@@ -69,15 +69,30 @@
                             @if (!empty($results))
                                 @foreach (array_keys($results[array_key_first($results)]) as $key)
                                     @if ($key !== 'auditorName' and $key !== 'auditorId' and $key !== 'Total')
-                                        <th class="border-b border-gray-300 px-4 py-2 text-xs text-center whitespace-nowrap">
+                                        <th
+                                            class="border-b border-gray-300 px-4 py-2 text-xs text-center whitespace-nowrap cursor-pointer select-none"
+                                            wire:click="sortBy('{{ $key }}')"
+                                            title="Sort by {{ $key }}"
+                                        >
                                             {{ $key }}
+                                            @if ($dataField === $key)
+                                            <span class="">{{ $dataOrder === 'asc' ? '▲' : '▼' }}</span>
+                                            @endif
                                         </th>
                                     @endif
                                 @endforeach
                                 {{-- Sticky Total column --}}
-                                <th class="sticky right-0 bg-gray-100 border-b border-gray-300 px-4 py-2 text-xs text-center z-10">
-                                    Total
+                                <th class="sticky right-0 ... cursor-pointer select-none text-xs"
+                                    wire:click="sortBy('Total')">
+                                Total
+                                @if ($dataField === 'Total')
+                                    <span class="text-xs">{{ $dataOrder === 'asc' ? '▲' : '▼' }}</span>
+                                @endif
+
+
                                 </th>
+
+
                             @endif
                         </tr>
                     </thead>

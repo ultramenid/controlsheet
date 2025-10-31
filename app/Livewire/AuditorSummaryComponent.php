@@ -13,6 +13,36 @@ class AuditorSummaryComponent extends Component
 {
     public $startDate , $endDate , $rangeAuditor, $alertCode, $alertCodeValidator;
 
+
+    // Bind to UI
+    public string $dataField = 'total';   // users.name | d | total | users.id
+    public string $dataOrder = 'desc';    // asc | desc
+
+    // (optional) persist via query string
+    protected $queryString = ['dataField', 'dataOrder'];
+
+    // Allowlist to keep it safe
+    private array $allowedFields = ['users.name', 'users.id', 'd', 'total'];
+    private array $allowedOrders = ['asc', 'desc'];
+
+    private function normalizedSort(): array
+    {
+        $field = in_array($this->dataField, $this->allowedFields, true) ? $this->dataField : 'total';
+        $order = in_array(strtolower($this->dataOrder), $this->allowedOrders, true) ? strtolower($this->dataOrder) : 'desc';
+        return [$field, $order];
+    }
+
+    public function sortBy(string $field): void
+    {
+        // toggle dir when clicking same field
+        if ($this->dataField === $field) {
+            $this->dataOrder = $this->dataOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->dataField = $field;
+            $this->dataOrder = $field === 'total' ? 'desc' : 'asc';
+        }
+    }
+
     public function mount(){
         $this->startDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
         $this->endDate = Carbon::now('Asia/Jakarta')->format('Y-m-d');
@@ -69,6 +99,8 @@ class AuditorSummaryComponent extends Component
     #[On('echo:analis-data,UpdateAnalis')]
     #[On('echo:auditor-data,UpdateAuditor')]
     public function filter(){
+       [$dataField, $dataOrder] = $this->normalizedSort();
+
         $rows = DB::table('auditorlog')
             ->join('users', 'users.id', '=', 'auditorlog.auditorId')
             ->select(
@@ -78,18 +110,19 @@ class AuditorSummaryComponent extends Component
                 DB::raw("COUNT(auditorlog.alertId) as total")
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
-            ->where('ngapain', '=' ,'auditing')
+            ->where('ngapain', '=', 'auditing')
             ->groupBy('users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
+            ->orderBy($dataField, $dataOrder)   // ✅ dynamic + safe
             ->get();
 
+        // === your original pivoting/Total code (unchanged) ===
         $results = [];
-
         foreach ($rows as $row) {
             if (!isset($results[$row->auditorName])) {
                 $results[$row->auditorName]['auditorName'] = $row->auditorName;
                 $results[$row->auditorName]['auditorId']   = $row->auditorId;
             }
-            $results[$row->auditorName][$row->d] = $row->total;
+            $results[$row->auditorName][$row->d] = (int) $row->total;
         }
 
         $period = new \DatePeriod(
@@ -98,40 +131,43 @@ class AuditorSummaryComponent extends Component
             (new \DateTime($this->endDate))->modify('+1 day')
         );
 
+        $allDates = [];
         foreach ($period as $dt) {
             $allDates[] = $dt->format('Y-m-d');
         }
 
-        // fill missing dates with 0 + add Total
         foreach ($results as &$row) {
             $total = 0;
-
             foreach ($allDates as $d) {
-                if (!isset($row[$d])) {
-                    $row[$d] = 0;
-                }
+                if (!isset($row[$d])) $row[$d] = 0;
                 $total += $row[$d];
             }
-
-            $row['Total'] = $total;
-
-            // reorder keys: auditorName, auditorId, dates..., Total
             $ordered = [
                 'auditorName' => $row['auditorName'],
-                'auditorId'   => $row['auditorId']
+                'auditorId'   => $row['auditorId'],
             ];
-
-            foreach ($allDates as $d) {
-                $ordered[$d] = $row[$d];
-            }
-
+            foreach ($allDates as $d) $ordered[$d] = $row[$d];
             $ordered['Total'] = $total;
-
             $row = $ordered;
         }
         unset($row);
 
-        return $results;
+        // NOTE: SQL can’t sort by the computed 'Total'.
+        // If you want final output sorted by 'Total', add:
+        // usort($results, fn($a, $b) => $this->dataOrder === 'asc'
+        //     ? $a['Total'] <=> $b['Total']
+        //     : $b['Total'] <=> $a['Total']
+        // );
+
+        // but only when $this->dataField === 'Total' (from UI)
+        if ($this->dataField === 'Total') {
+            usort($results, fn($a, $b) => $this->dataOrder === 'asc'
+                ? $a['Total'] <=> $b['Total']
+                : $b['Total'] <=> $a['Total']
+            );
+        }
+
+        return array_values($results);
 
     }
 
@@ -141,6 +177,8 @@ class AuditorSummaryComponent extends Component
     {
         // dd($this->filter());
         $results = $this->filter();
-        return view('livewire.auditor-summary-component', compact('results'));
+        $dataField = $this->dataField;
+        $dataOrder = $this->dataOrder;
+        return view('livewire.auditor-summary-component', compact('results', 'dataField', 'dataOrder'));
     }
 }
