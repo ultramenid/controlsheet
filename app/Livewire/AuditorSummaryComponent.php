@@ -34,13 +34,22 @@ class AuditorSummaryComponent extends Component
 
     public function sortBy(string $field): void
     {
-        // toggle dir when clicking same field
+        $field = trim($field); // <- important for date keys like '2025-10-31'
+
         if ($this->dataField === $field) {
             $this->dataOrder = $this->dataOrder === 'asc' ? 'desc' : 'asc';
         } else {
             $this->dataField = $field;
-            $this->dataOrder = $field === 'total' ? 'desc' : 'asc';
+            // default direction: totals & dates → desc, names/ids → asc
+            $this->dataOrder = ($field === 'Total' || $this->isYmd($field)) ? 'desc'
+                            : (in_array($field, ['users.name', 'users.id'], true) ? 'asc' : 'desc');
         }
+    }
+
+    private function isYmd(string $s): bool
+    {
+        // accept exactly YYYY-MM-DD
+        return (bool) preg_match('/^\d{4}-\d{2}-\d{2}$/', $s);
     }
 
     public function mount(){
@@ -159,14 +168,20 @@ class AuditorSummaryComponent extends Component
         //     : $b['Total'] <=> $a['Total']
         // );
 
-        // but only when $this->dataField === 'Total' (from UI)
         if ($this->dataField === 'Total') {
-            usort($results, fn($a, $b) => $this->dataOrder === 'asc'
-                ? $a['Total'] <=> $b['Total']
-                : $b['Total'] <=> $a['Total']
+            usort($results, fn($a, $b) =>
+                $this->dataOrder === 'asc' ? $a['Total'] <=> $b['Total'] : $b['Total'] <=> $a['Total']
+            );
+        } elseif ($this->isYmd($this->dataField)) {
+            $k = $this->dataField;        // e.g. '2025-10-31'
+            usort($results, fn($a, $b) =>  // note: treat missing as 0
+                $this->dataOrder === 'asc'
+                    ? ((int)($a[$k] ?? 0)) <=> ((int)($b[$k] ?? 0))
+                    : ((int)($b[$k] ?? 0)) <=> ((int)($a[$k] ?? 0))
             );
         }
 
+        // return numerically indexed array
         return array_values($results);
 
     }
