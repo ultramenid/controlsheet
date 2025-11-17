@@ -148,9 +148,12 @@
         </table>
     </div>
 
+    <div class="mt-4">
     @if ($databases)
-    {{ $databases->links('livewire.pagination') }}
-    @endif
+        {{ $databases->links() }}
+        @endif
+    </div>
+
 
     <script>
         let dateDropdown = document.getElementById('date-dropdown');
