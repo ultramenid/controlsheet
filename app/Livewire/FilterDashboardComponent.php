@@ -10,6 +10,7 @@ class FilterDashboardComponent extends Component
     public $yearAlert;
 
     public function mount(){
+
         $this->yearAlert = Carbon::now()->format('Y');
     }
 

@@ -19,8 +19,8 @@ class AlertAnalisComponent extends Component
 
     use WithPagination;
     public $isAudit = false;
-    public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $searchId;
+    public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation, $statusAlert;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 50, $searchId;
     public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
 
 
@@ -63,7 +63,7 @@ class AlertAnalisComponent extends Component
     public function mount($id)
     {
         $this->analisId = $id;
-        $this->selectStatus = session('selectStatus');
+        session()->has('selectStatus') ? $this->selectStatus = session('selectStatus') : $this->selectStatus = 'all';
         $this->yearAlert = session('yearAlert');
     }
     public function updatedYearAlert($value){
@@ -92,8 +92,8 @@ class AlertAnalisComponent extends Component
             return  DB::table('alerts')
                         ->where('alertId', 'like' , $sc)
                         ->where('analisId', $this->analisId)
-                        ->when($this->selectStatus === 'pending', function ($query) {
-                            return $query->whereNull('auditorStatus');
+                        ->when($this->selectStatus != 'all', function ($query) {
+                            return $query->where('auditorStatus', $this->selectStatus);
                         })
                         ->when($this->yearAlert != 'all', function ($query) {
                             return $query->whereYear('detectionDate', $this->yearAlert);
@@ -112,10 +112,24 @@ class AlertAnalisComponent extends Component
         // dd(session()->all());
     }
 
+    public function checkAlertStatus(){
+
+        $status = $this->alertStatus;
+        if($status == 'rejected'){
+            $status = 'rejected';
+        }elseif($status == 'duplicate'){
+            $status = 'duplicate';
+        }else{
+            $status = $this->statusAlert;
+        }
+        return $status;
+    }
+
     public function auditing($alertId){
         event(new UpdateAnalis);
         if($this->manualValidation()){
             DB::table('alerts')->where('alertId', $alertId)->update([
+                'alertStatus' => $this->checkAlertStatus(),
                 'auditorStatus' => $this->alertStatus,
                 'auditorReason' => $this->alertReason,
                 'updated_at' => Carbon::now('Asia/Jakarta')
@@ -141,6 +155,8 @@ class AlertAnalisComponent extends Component
         $this->analis = $data->name;
         $this->observation = $data->observation;
         $this->alertNote = $data->alertNote;
+        $this->statusAlert = $data->alertStatus;
+        $this->alertStatus = $data->auditorStatus;
 
     }
 

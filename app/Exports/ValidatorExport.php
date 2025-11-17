@@ -28,8 +28,8 @@ class ValidatorExport implements FromCollection, WithHeadings
          return DB::table('alerts')
         ->join('users', 'alerts.analisId', '=', 'users.id')
         ->select('alerts.alertId as alertId', 'users.name as validator','alerts.alertStatus as alertStatus', 'alerts.detectionDate as detectionDate', 'alerts.observation as observation', 'alerts.region as region', 'alerts.province as province','alerts.auditorStatus as auditorStatus', 'alerts.alertNote as alertNote', 'alerts.created_at as inputDate' )
-        ->when($this->status === 'pending', function ($query) {
-           return $query->whereNull('auditorStatus');
+        ->when($this->status != 'all', function ($query) {
+            return $query->where('auditorStatus', $this->status);
         })
         ->when($this->year != 'all', function ($query) {
             return $query->whereYear('detectionDate', $this->year);

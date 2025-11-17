@@ -15,7 +15,7 @@ class TableAnalisis extends Component
     public $isReason = false;
     public $search = '';
     public $alertId, $alertStatus, $alertReason;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 50;
     public $yearAlert;
 
     public function sortingField($field){
@@ -41,9 +41,18 @@ class TableAnalisis extends Component
 
 
     public function fixAlert($id){
+        if ($this->alertStatus === 'reexportimage') {
+            $newStatus = 'pre-approved';
+        } elseif ($this->alertStatus === 'reclassification') {
+            $newStatus = 'refined';
+        } else {
+            $newStatus = null;
+        }
+
+
         event(new UpdateAuditor);
         DB::table('alerts')->where('alertId', $id)->update([
-            'auditorStatus' => null,
+            'auditorStatus' => $newStatus,
             'auditorReason' => null,
             'updated_at' => Carbon::now('Asia/Jakarta')
         ]);
@@ -77,6 +86,8 @@ class TableAnalisis extends Component
                         ->where('auditorStatus', '!=', 'approved')
                         ->where('auditorStatus', '!=', 'rejected')
                         ->where('auditorStatus', '!=', 'duplicate')
+                        ->where('auditorStatus', '!=', 'pre-approved')
+                        ->where('auditorStatus', '!=', 'refined')
                         ->when($this->yearAlert !== 'all', function ($query) {
                             $query->whereYear('detectionDate', $this->yearAlert);
                         })

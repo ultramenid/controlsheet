@@ -19,7 +19,7 @@ class AuditorDatabaseComponent extends Component
 
     public $alertId;
 
-    public $alertStatus;
+    public $alertStatus, $statusAlert;
 
     public $alertReason;
 
@@ -33,7 +33,7 @@ class AuditorDatabaseComponent extends Component
 
     public $dataOrder = 'asc';
 
-    public $paginate = 25;
+    public $paginate = 50;
 
     public $searchId;
 
@@ -47,7 +47,8 @@ class AuditorDatabaseComponent extends Component
 
     public function mount()
     {
-        $this->selectStatus = session('selectStatus');
+        //cek if session selectstatus exist if not set to 'all'
+        session()->has('selectStatus') ? $this->selectStatus = session('selectStatus') : $this->selectStatus = 'all';
         $this->yearAlert = session('yearAlert');
     }
 
@@ -104,11 +105,26 @@ class AuditorDatabaseComponent extends Component
         // dd(session()->all());
     }
 
+    public function checkAlertStatus(){
+
+        $status = $this->alertStatus;
+        if($status == 'rejected'){
+            $status = 'rejected';
+        }elseif($status == 'duplicate'){
+            $status = 'duplicate';
+        }else{
+            $status = $this->statusAlert;
+        }
+        return $status;
+    }
+
+
     public function auditing($alertId)
     {
         event(new UpdateAnalis);
         if ($this->manualValidation()) {
             DB::table('alerts')->where('alertId', $alertId)->update([
+                'alertStatus' => $this->checkAlertStatus(),
                 'auditorStatus' => $this->alertStatus,
                 'auditorReason' => $this->alertReason,
                 'updated_at' => Carbon::now('Asia/Jakarta'),
@@ -132,22 +148,23 @@ class AuditorDatabaseComponent extends Component
     public function updatedSelectStatus($value)
     {
         session(['selectStatus' => $value]);
-        // dd(session()/->all());
         $this->resetPage();
     }
 
     public function showAudit($id)
     {
-        $this->isAudit = true;
-        // load data to delete function
+         $this->isAudit = true;
         $data = DB::table('alerts')
-            ->join('users', 'analisId', '=', 'users.id')
-            ->select('alerts.*', 'users.*')
-            ->where('alertId', $id)->first();
+        ->join('users', 'analisId', '=', 'users.id')
+        ->select('alerts.*', 'users.*')
+        ->where('alertId', $id)->first();
+        // dd($data);
         $this->alertId = $data->alertId;
         $this->analis = $data->name;
         $this->observation = $data->observation;
         $this->alertNote = $data->alertNote;
+        $this->statusAlert = $data->alertStatus;
+        $this->alertStatus = $data->auditorStatus;
 
     }
 
@@ -155,21 +172,21 @@ class AuditorDatabaseComponent extends Component
     #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts()
     {
-        // $sc = '%'.$this->searchId.'%';
+        $sc = '%'.$this->searchId.'%';
         try {
             return DB::table('alerts')
                 ->when(!empty($this->searchId), function ($query) {
                     return $query->where('alertId', $this->searchId);
                 })
-                ->when($this->selectStatus === 'pending', function ($query) {
-                    return $query->whereNull('auditorStatus');
+               ->when($this->selectStatus != 'all', function ($query) {
+                    return $query->where('auditorStatus', $this->selectStatus);
                 })
                 ->when($this->yearAlert != 'all', function ($query) {
                     return $query->whereYear('detectionDate', $this->yearAlert);
                 })
                 ->where('isActive', 1)
                 ->orderBy($this->dataField, $this->dataOrder)
-                ->cursorPaginate($this->paginate);
+                ->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
         }

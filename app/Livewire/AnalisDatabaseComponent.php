@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class AnalisDatabaseComponent extends Component
 {
@@ -15,16 +16,23 @@ class AnalisDatabaseComponent extends Component
     public $isReason = false;
     public $search = '';
     public $alertId, $alertStatus, $alertReason;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 10, $yearAlert;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 50, $yearAlert, $selectStatus;
 
      public function mount(){
         $this->yearAlert = session('yearAlert');
+        session()->has('selectStatus') ? $this->selectStatus = session('selectStatus') : $this->selectStatus = 'all';
     }
 
     public function updatedYearAlert($value){
         session(['yearAlert' => $value]);
         $this->resetPage();
     }
+
+    public function updatedSelectStatus($value){
+        session(['selectedStatus' => $value]);
+        $this->resetPage();
+    }
+
     public function sortingField($field){
         $this->dataField = $field;
         $this->dataOrder = $this->dataOrder == 'asc' ? 'desc' : 'asc';
@@ -48,9 +56,18 @@ class AnalisDatabaseComponent extends Component
 
 
     public function fixAlert($id){
+        if ($this->alertStatus === 'reexportimage') {
+            $newStatus = 'pre-approved';
+        } elseif ($this->alertStatus === 'reclassification') {
+            $newStatus = 'refined';
+        } else {
+            $newStatus = null;
+        }
+
+
         event(new UpdateAuditor);
         DB::table('alerts')->where('alertId', $id)->update([
-            'auditorStatus' => null,
+            'auditorStatus' => $newStatus,
             'auditorReason' => null,
             'updated_at' => Carbon::now('Asia/Jakarta')
         ]);
@@ -62,20 +79,34 @@ class AnalisDatabaseComponent extends Component
         $this->resetPage();
     }
 
+
+    #[On('updateStatus')]
+    public function updateStatus($id, $status) {
+        DB::table('alerts')->where('alertId', $id)->update([
+            'auditorStatus' => $status,
+            'updated_at' => Carbon::now('Asia/Jakarta')
+        ]);
+        Toaster::success('Succesfully change platform status');
+     }
+
     #[On('echo:analis-data,UpdateAnalis')]
     public function getAlerts(){
         $sc = '%' . $this->search . '%';
         try {
             return  DB::table('alerts')
-                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at')
+                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at', 'platformStatus')
                         ->where('analisId', session('id'))
                         ->when(!empty($this->search), function ($query) {
                             return $query->where('alertId', $this->search);
+                        })
+                        ->when($this->selectStatus != 'all', function ($query) {
+                            return $query->where('auditorStatus', $this->selectStatus);
                         })
                         ->where('isActive', 1)
                         ->when($this->yearAlert != 'all', function ($query) {
                             return $query->whereYear('detectionDate', $this->yearAlert);
                         })
+
                         ->orderBy($this->dataField, $this->dataOrder)
                         ->paginate($this->paginate);
         } catch (\Throwable $th) {

@@ -10,31 +10,33 @@
         <table class="w-full border-collapse border-b border-gray-300">
           <thead class="text-xs font-semibold">
             <tr class="bg-gray-50 text-left">
-              <th wire:click='sortingField("name")' class=" cursor-pointer border-b border-gray-300 px-4 py-2">Validator</th>
-              <th wire:click='sortingField("approved")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Aprroved</th>
-              <th wire:click='sortingField("reexportimage")' class="cursor-pointer border-b border-gray-300 px-4 py-2">reexportimage</th>
-              <th wire:click='sortingField("reclassification")' class="cursor-pointer border-b border-gray-300 px-4 py-2">reclassification</th>
-              <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Rejected</th>
-              <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Duplicate</th>
-              <th wire:click='sortingField("pending")' class="cursor-pointer border-b border-gray-300 px-4 py-2">Pending</th>
-              <th class="cursor-pointer border-b border-gray-300 px-4 py-2">Sccon</th>
-              <th class="cursor-pointer border-b border-gray-300 px-4 py-2">Workspace</th>
-              <th wire:click='sortingField("total")' class="cursor-pointer border-b border-gray-300 px-4 py-2">TOTAL</th>
+              <th wire:click='sortingField("name")' class=" cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Validator</th>
+              <th wire:click='sortingField("approved")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize ">Aprroved</th>
+              <th wire:click='sortingField("reexportimage")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">reexportimage</th>
+              <th wire:click='sortingField("reclassification")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">reclassification</th>
+              <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Rejected</th>
+              <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Duplicate</th>
+              <th wire:click='sortingField("pre-approved")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">pre-approved</th>
+              <th wire:click='sortingField("refined")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">refined</th>
+              <th class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Sccon</th>
+              <th class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Workspace</th>
+              <th wire:click='sortingField("total")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">TOTAL</th>
             </tr>
           </thead>
           <tbody class="text-xs">
             @forelse ($alerts as $item )
                 <tr class="border-t hover:bg-gray-50">
-                    <td class=" border-b border-gray-300 px-4 py-2"><a href="{{ url('/alertanalis/'.$item->userId) }}" class="hover:underline">{{$item->name}}</a></td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->approved}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->reexportimage}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->reclassification}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->rejected}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->duplicate}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->pending}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->sccon}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->workspace}}</td>
-                    <td class=" border-b border-gray-300 px-4 py-2">{{$item->total}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 "><a href="{{ url('/alertanalis/'.$item->userId) }}" class="hover:underline">{{$item->name}}</a></td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-green-alerta-table-full">{{$item->approved}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-yellow-alerta-table-full">{{$item->reexportimage}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-yellow-alerta-table-full">{{$item->reclassification}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-merah-alerta-table-full">{{$item->rejected}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-merah-alerta-table-full">{{$item->duplicate}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-refined-alerta-table-full">{{$item->preapproved}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-refined-alerta-table-full">{{$item->refined}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-gray-alerta-table-full">{{$item->sccon}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-gray-alerta-table-full">{{$item->workspace}}</td>
+                    <td class=" border-b border-gray-300 px-4 py-2 bg-gray-alerta-table-full">{{$item->total}}</td>
                 </tr>
                 @empty
                 <tr>

@@ -19,11 +19,52 @@
 .bg-green-alerta{
     background-color: #86B897;
 }
+
+.bg-green-alerta-table{
+    border-bottom-color: rgba(134, 184, 151); /* 20% opacity */
+}
+
+.bg-yellow-alerta-table{
+    border-bottom-color: rgba(196, 196, 119); /* 20% opacity */
+}
+
+.bg-merah-alerta-table{
+    border-bottom-color: rgba(121, 45, 32); /* 20% opacity */
+}
+
+.bg-refined-alerta-table{
+    border-bottom-color: rgb(135, 190, 211);
+}
+
+.bg-gray-alerta-table{
+    border-bottom-color: rgba(156, 163, 175); /* 20% opacity */
+}
+
+.bg-green-alerta-table-full{
+    background-color: rgba(134, 184, 151, 0.2); /* 20% opacity */
+}
+
+.bg-yellow-alerta-table-full{
+    background-color: rgba(196, 196, 119, 0.2); /* 20% opacity */
+}
+
+.bg-merah-alerta-table-full{
+    background-color: rgba(121, 45, 32, 0.2); /* 20% opacity */
+}
+
+.bg-refined-alerta-table-full{
+    background-color: rgb(135, 190, 211, 0.2);
+}
+
+.bg-gray-alerta-table-full{
+    background-color: rgba(156, 163, 175, 0.2); /* 20% opacity */
+}
+
 .bg-merah-alerta{
-    background-color: #792D20;
+    background-color: rgb(121, 45, 32);
 }
 .bg-yellow-alerta{
-    background-color: #C4C477;
+    background-color: rgb(196, 196, 119);
 }
 
 .text-green-alerta{

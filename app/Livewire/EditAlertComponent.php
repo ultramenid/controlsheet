@@ -12,7 +12,7 @@ use Masmerise\Toaster\Toaster;
 
 class EditAlertComponent extends Component
 {
-    public $alertId, $alertStatus, $detectionDate, $observation, $alertNote;
+    public $alertId, $alertStatus, $detectionDate, $observation, $alertNote, $auditorStatus;
     public $chooseRegion = '', $chooseProvince = '';
     public $region = 'Please select', $province = 'Please select', $idAlert, $platformStatus ;
 
@@ -29,6 +29,7 @@ class EditAlertComponent extends Component
         $this->region = $this->getData()->region;
         $this->province = $this->getData()->province;
         $this->platformStatus = $this->getData()->platformStatus;
+        $this->auditorStatus = $this->getData()->auditorStatus;
     }
     public function getRegions(){
         try {
@@ -113,15 +114,13 @@ class EditAlertComponent extends Component
 
 
     public function checkAlertStatus(){
-        $auditorStatus = null;
+        $status = $this->auditorStatus;
 
         if($this->alertStatus == 'rejected'){
-            $auditorStatus = 'rejected';
-        }else{
-            $auditorStatus = null;
+            $status = 'rejected';
         }
 
-        return $auditorStatus;
+        return $status;
     }
 
     public function storeAlert(){

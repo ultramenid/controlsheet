@@ -50,7 +50,8 @@ class CheckAlertAnalis extends Component
                     SUM(CASE WHEN alerts.auditorStatus = 'duplicate' THEN 1 ELSE 0 END) AS duplicate,
                     SUM(CASE WHEN alerts.auditorStatus = 'reexportimage' THEN 1 ELSE 0 END) AS reexportimage,
                     SUM(CASE WHEN alerts.auditorStatus = 'reclassification' THEN 1 ELSE 0 END) AS reclassification,
-                    SUM(CASE WHEN alerts.auditorStatus IS NULL  THEN 1 ELSE 0 END) AS pending,
+                    SUM(CASE WHEN alerts.auditorStatus = 'pre-approved' THEN 1 ELSE 0 END) AS preapproved,
+                    SUM(CASE WHEN alerts.auditorStatus = 'refined' THEN 1 ELSE 0 END) AS refined,
                     SUM(CASE WHEN alerts.platformStatus = 'sccon' THEN 1 ELSE 0 END) AS sccon,
                     SUM(CASE WHEN alerts.platformStatus = 'workspace' THEN 1 ELSE 0 END) AS workspace,
                     COUNT(alerts.alertId) AS total
