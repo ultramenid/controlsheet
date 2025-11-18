@@ -118,8 +118,6 @@ class EditAlertComponent extends Component
 
         if($this->alertStatus == 'rejected'){
             $status = 'rejected';
-        }else{
-            $status = 'pre-approved';
         }
 
         return $status;
