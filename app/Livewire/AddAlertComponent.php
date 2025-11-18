@@ -104,15 +104,15 @@ class AddAlertComponent extends Component
     }
 
     public function checkAlertStatus(){
-        $auditorStatus = null;
+        $status = $this->auditorStatus;
 
         if($this->alertStatus == 'rejected'){
-            $auditorStatus = 'rejected';
+            $status = 'rejected';
         }else{
-            $auditorStatus = null;
+            $status = 'pre-approved';
         }
 
-        return $auditorStatus;
+        return $status;
     }
 
     public function storeAlert(){
