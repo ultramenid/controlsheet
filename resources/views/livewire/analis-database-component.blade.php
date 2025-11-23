@@ -143,7 +143,7 @@
                                 >
                                 <option value="pre-approved" {{ $item->auditorStatus == 'pre-approved' ? 'selected' : '' }}>Pre-Approved</option>
                                 <option value="refined" {{ $item->auditorStatus == 'refined' ? 'selected' : '' }}>Refined</option>
-                                <option value="refined" {{ $item->auditorStatus == 'error' ? 'selected' : '' }}>Error</option>
+                                <option value="error" {{ $item->auditorStatus == 'error' ? 'selected' : '' }}>Error</option>
                                 </select>
 
                                 {{-- SVG icon (visible when enabled) --}}
