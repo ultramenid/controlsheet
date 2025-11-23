@@ -150,7 +150,7 @@
 
     <div class="mt-4">
     @if ($databases)
-        {{ $databases->links() }}
+        {{ $databases->links('livewire.pagination') }}
         @endif
     </div>
 

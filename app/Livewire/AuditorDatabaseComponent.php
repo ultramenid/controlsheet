@@ -33,7 +33,7 @@ class AuditorDatabaseComponent extends Component
 
     public $dataOrder = 'asc';
 
-    public $paginate = 50;
+    public $paginate = 30;
 
     public $searchId;
 

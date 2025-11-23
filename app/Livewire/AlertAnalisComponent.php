@@ -20,7 +20,7 @@ class AlertAnalisComponent extends Component
     use WithPagination;
     public $isAudit = false;
     public $alertId, $alertStatus, $alertReason, $analis, $alertNote, $observation, $statusAlert;
-    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 50, $searchId;
+    public $dataField = 'alertId', $dataOrder = 'asc', $paginate = 30, $searchId;
     public $deleter = false, $alertDeleteId, $selectStatus, $yearAlert;
 
 
