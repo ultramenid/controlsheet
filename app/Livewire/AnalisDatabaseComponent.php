@@ -93,22 +93,26 @@ class AnalisDatabaseComponent extends Component
     public function getAlerts(){
         $sc = '%' . $this->search . '%';
         try {
-            return  DB::table('alerts')
-                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at', 'platformStatus')
-                        ->where('analisId', session('id'))
-                        ->when(!empty($this->search), function ($query) {
-                            return $query->where('alertId', $this->search);
-                        })
-                        ->when($this->selectStatus != 'all', function ($query) {
-                            return $query->where('auditorStatus', $this->selectStatus);
-                        })
-                        ->where('isActive', 1)
-                        ->when($this->yearAlert != 'all', function ($query) {
-                            return $query->whereYear('detectionDate', $this->yearAlert);
-                        })
+            $query = DB::table('alerts')
+                ->select('id', 'alertId', 'alertStatus', 'detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at', 'platformStatus')
+                ->where('analisId', session('id'))
+                ->where('isActive', 1);
 
-                        ->orderBy($this->dataField, $this->dataOrder)
-                        ->paginate($this->paginate);
+            if (!empty($this->search)) {
+                $query->where('alertId', $this->search);
+            }
+
+            if ($this->selectStatus !== 'all') {
+                $query->where('auditorStatus', $this->selectStatus);
+            }
+
+            if ($this->yearAlert !== 'all') {
+                $query->whereYear('detectionDate', $this->yearAlert);
+            }
+
+            return $query
+                ->orderBy($this->dataField, $this->dataOrder)
+                ->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
         }
