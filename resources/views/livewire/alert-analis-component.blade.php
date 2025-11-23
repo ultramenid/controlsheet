@@ -69,20 +69,16 @@
         <table class="w-full divide-y divide-gray-200  rounded-sm  border border-gray-100">
             <thead class=" text-xs">
                 <tr class="">
-                    <th wire:click='sortingField("alertId")'  class="bg-gray-50 px-6 py-1  cursor-pointer   text-left  text-gray-700 uppercase tracking-wider  sm:w-2/12 w-4/12">
+                    <th  class="bg-gray-50 px-6 py-1  cursor-pointer   text-left  text-gray-700 uppercase tracking-wider  sm:w-2/12 w-4/12">
                         <div class=" space-x-1 flex" >
                             <a class="text-xs">Alert ID</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                                </svg>
+
                          </div>
                      </th>
-                    <th wire:click='sortingField("created_at")' class="bg-gray-50 px-6 py-1    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12 hidden sm:table-cell ">
+                    <th  class="bg-gray-50 px-6 py-1    text-left   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12 hidden sm:table-cell ">
                        <div class="flex space-x-1">
                            <a>Input date</a>
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                            </svg>
+
                         </div>
                     </th>
                     <th  class="bg-gray-50 px-6 py-1    text-left   text-gray-700 uppercase tracking-wider  sm:w-3/12 w-4/12 hidden sm:table-cell">
@@ -96,12 +92,10 @@
 
                          </div>
                      </th>
-                     <th wire:click='sortingField("auditorStatus")' class="bg-gray-50 px-2 py-1   text-center   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12">
+                     <th  class="bg-gray-50 px-2 py-1   text-center   text-gray-700 uppercase tracking-wider cursor-pointer sm:w-2/12 w-4/12">
                         <div class="flex space-x-1">
                             <a>Platform Status</a>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 my-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                             </svg>
+
                          </div>
                      </th>
 

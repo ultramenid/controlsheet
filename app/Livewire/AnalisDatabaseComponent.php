@@ -111,7 +111,6 @@ class AnalisDatabaseComponent extends Component
             }
 
             return $query
-                ->orderBy($this->dataField, $this->dataOrder)
                 ->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];

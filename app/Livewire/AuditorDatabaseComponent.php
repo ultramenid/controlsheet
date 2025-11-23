@@ -185,22 +185,11 @@ class AuditorDatabaseComponent extends Component
                 $query->where('auditorStatus', $this->selectStatus);
             }
 
-            // 🚀 BEST PRACTICE: Use Range Query for indexed date columns
             if ($this->yearAlert !== 'all') {
-                // Calculate the start date of the year (e.g., '2024-01-01 00:00:00')
-                $startDate = $this->yearAlert . '-01-01 00:00:00';
-
-                // Calculate the start date of the *next* year (e.g., '2025-01-01 00:00:00')
-                $nextYear = (int)$this->yearAlert + 1;
-                $endDateExclusive = $nextYear . '-01-01 00:00:00';
-
-                // This leverages the B-tree index perfectly!
-                $query->where('detectionDate', '>=', $startDate)
-                    ->where('detectionDate', '<', $endDateExclusive);
+                $query->whereYear('detectionDate', $this->yearAlert);
             }
 
             return $query
-                ->orderBy($this->dataField, $this->dataOrder)
                 ->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
