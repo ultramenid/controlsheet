@@ -13,6 +13,7 @@
                     <option value="all">All</option>
                     <option value="pre-approved">Pre-approved</option>
                     <option value="refined">Refined</option>
+                    <option value="error">Error</option>
                     <option value="reexportimage">Re-export image</option>
                     <option value="reclassification">Re-classification</option>
                 </select>
