@@ -186,7 +186,7 @@ class AuditorDatabaseComponent extends Component
                 })
                 ->where('isActive', 1)
                 ->orderBy($this->dataField, $this->dataOrder)
-                ->cursorPaginate($this->paginate);
+                ->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
         }
