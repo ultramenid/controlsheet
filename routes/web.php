@@ -19,16 +19,11 @@ Route::middleware([checkSession::class])->group(function () {
     Route::get('/editalert/{id}', [AlertController::class, 'editalert']);
 
     Route::middleware([checkLevel::class])->group(function(){
-
         Route::get('/users', [UsersController::class, 'index']);
         Route::get('/adduser', [UsersController::class, 'adduser']);
         Route::get('/edituser/{id}', [UsersController::class, 'edituser']);
         Route::get('/alertanalis/{id}', [AlertController::class, 'alertanalis']);
         Route::get('/auditor-alert/{id}', [AlertController::class, 'auditorAlert']);
-
-
-
-
     });
     Route::group(['prefix' => 'cms/controlsheet-filemanager'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();

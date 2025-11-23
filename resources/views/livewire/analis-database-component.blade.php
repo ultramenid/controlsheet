@@ -27,6 +27,7 @@
                     <option value="all">All</option>
                     <option value="pre-approved">Pre-approved</option>
                     <option value="refined">Refined</option>
+                    <option value="error">Error</option>
                     <option value="reexportimage">Re-export image</option>
                     <option value="reclassification">Re-classification</option>
                 </select>
@@ -142,12 +143,14 @@
                                 class="w-full text-center appearance-none px-2 py-1 text-xs rounded focus:outline-none
                                     @if($item->auditorStatus == 'pre-approved') bg-blue-100 text-gray-700 cursor-pointer
                                     @elseif($item->auditorStatus == 'refined') bg-[#87bed3] text-white cursor-pointer
+                                    @elseif($item->auditorStatus == 'error') bg-merah-alerta text-white cursor-pointer
                                     @else bg-gray-100 text-black @endif"
                                 @if(!in_array($item->auditorStatus, ['pre-approved', 'refined'])) disabled @endif
                                 style="-webkit-text-align-last: center; text-align-last: center;"
                                 >
                                 <option value="pre-approved" {{ $item->auditorStatus == 'pre-approved' ? 'selected' : '' }}>Pre-Approved</option>
                                 <option value="refined" {{ $item->auditorStatus == 'refined' ? 'selected' : '' }}>Refined</option>
+                                <option value="refined" {{ $item->auditorStatus == 'error' ? 'selected' : '' }}>Error</option>
                                 </select>
 
                                 {{-- SVG icon (visible when enabled) --}}
