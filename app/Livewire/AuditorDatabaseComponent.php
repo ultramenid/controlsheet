@@ -175,22 +175,24 @@ class AuditorDatabaseComponent extends Component
         $sc = '%'.$this->searchId.'%';
         try {
             $query = DB::table('alerts')
-                ->where('isActive', 1);
+            ->join('users', 'users.id', '=', 'alerts.analisId')
+            ->where('alerts.isActive', 1)
+            ->where('users.is_active', 1);
 
             if (!empty($this->searchId)) {
-                $query->where('alertId', $this->searchId);
+                $query->where('alerts.alertId', $this->searchId);
             }
 
             if ($this->selectStatus !== 'all') {
-                $query->where('auditorStatus', $this->selectStatus);
+                $query->where('alerts.auditorStatus', $this->selectStatus);
             }
 
             if ($this->yearAlert !== 'all') {
-                $query->whereYear('detectionDate', $this->yearAlert);
+                $query->whereYear('alerts.detectionDate', $this->yearAlert);
             }
 
-            return $query
-                ->paginate($this->paginate);
+            return $query->paginate($this->paginate);
+
         } catch (\Throwable $th) {
             return [];
         }

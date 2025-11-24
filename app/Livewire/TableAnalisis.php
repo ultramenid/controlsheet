@@ -79,22 +79,35 @@ class TableAnalisis extends Component
     public function getAlerts(){
         $sc = '%' . $this->search . '%';
         try {
-            return  DB::table('alerts')
-                        ->select('id','alertId', 'alertStatus','detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at')
-                        ->where('analisId', session('id'))
-                        ->where('auditorStatus', '!=', null)
-                        ->where('auditorStatus', '!=', 'approved')
-                        ->where('auditorStatus', '!=', 'rejected')
-                        ->where('auditorStatus', '!=', 'duplicate')
-                        ->where('auditorStatus', '!=', 'pre-approved')
-                        ->where('auditorStatus', '!=', 'refined')
-                        ->when($this->yearAlert !== 'all', function ($query) {
-                            $query->whereYear('detectionDate', $this->yearAlert);
-                        })
-                        ->where('alertId', 'like' , $sc)
-                        ->where('isActive', 1)
-                        ->orderBy($this->dataField, $this->dataOrder)
-                        ->paginate($this->paginate);
+           return DB::table('alerts')
+            ->join('users', 'users.id', '=', 'alerts.analisId')
+            ->select(
+                'alerts.id',
+                'alerts.alertId',
+                'alerts.alertStatus',
+                'alerts.detectionDate',
+                'alerts.region',
+                'alerts.province',
+                'alerts.auditorStatus',
+                'alerts.auditorReason',
+                'alerts.created_at'
+            )
+            ->where('alerts.analisId', session('id'))
+            ->whereNotNull('alerts.auditorStatus')
+            ->whereNotIn('alerts.auditorStatus', [
+                'approved', 'rejected', 'duplicate', 'pre-approved', 'refined', 'error'
+            ])
+            ->when($this->yearAlert !== 'all', function ($q) {
+                return $q->whereYear('alerts.detectionDate', $this->yearAlert);
+            })
+            ->when(!empty($sc), function ($q) use ($sc) {
+                return $q->where('alerts.alertId', 'like', $sc);
+            })
+            ->where('alerts.isActive', 1)
+            ->where('users.is_active', 1) // only include alerts whose user is active
+            ->orderBy($this->dataField, $this->dataOrder)
+            ->paginate($this->paginate);
+
         } catch (\Throwable $th) {
             return [];
         }

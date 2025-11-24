@@ -15,7 +15,7 @@ class LoginComponent extends Component
     public $email, $password;
 
     public function getDatauser(){
-        return DB::table('users')->where('email', $this->email)->first();
+        return DB::table('users')->where('email', $this->email)->where('is_active', 1)->first();
     }
 
     public function login(){

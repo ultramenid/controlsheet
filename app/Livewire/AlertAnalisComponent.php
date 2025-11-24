@@ -90,20 +90,24 @@ class AlertAnalisComponent extends Component
         $sc = '%' . $this->searchId . '%';
         try {
             $query = DB::table('alerts')
-                ->where('analisId', $this->analisId)
-                ->where('isActive', 1);
-            if (isset($sc)) {
-                $query->where('alertId', 'like', $sc);
-            }
-            if ($this->selectStatus !== 'all') {
-                $query->where('auditorStatus', $this->selectStatus);
-            }
-            if ($this->yearAlert !== 'all') {
-                $query->whereYear('detectionDate', $this->yearAlert);
+                ->join('users', 'users.id', '=', 'alerts.analisId')
+                ->where('alerts.analisId', $this->analisId)
+                ->where('alerts.isActive', 1)
+                ->where('users.is_active', 1);
+
+            if (!empty($sc)) {
+                $query->where('alerts.alertId', 'like', $sc);
             }
 
-            return $query
-                ->paginate($this->paginate);
+            if ($this->selectStatus !== 'all') {
+                $query->where('alerts.auditorStatus', $this->selectStatus);
+            }
+
+            if ($this->yearAlert !== 'all') {
+                $query->whereYear('alerts.detectionDate', $this->yearAlert);
+            }
+
+            return $query->paginate($this->paginate);
         } catch (\Throwable $th) {
             return [];
         }

@@ -118,11 +118,12 @@ class AuditorSummaryComponent extends Component
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
             ->where('ngapain', '=', 'auditing')
+            ->where('users.is_active', 1)
             ->groupBy('users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
-            ->orderBy($dataField, $dataOrder)   // ✅ dynamic + safe
+            ->orderBy($dataField, $dataOrder)
             ->get();
 
-        // === your original pivoting/Total code (unchanged) ===
+
         $results = [];
         foreach ($rows as $row) {
             if (!isset($results[$row->auditorName])) {
@@ -159,12 +160,7 @@ class AuditorSummaryComponent extends Component
         }
         unset($row);
 
-        // NOTE: SQL can’t sort by the computed 'Total'.
-        // If you want final output sorted by 'Total', add:
-        // usort($results, fn($a, $b) => $this->dataOrder === 'asc'
-        //     ? $a['Total'] <=> $b['Total']
-        //     : $b['Total'] <=> $a['Total']
-        // );
+
 
         if ($this->dataField === 'Total') {
             usort($results, fn($a, $b) =>

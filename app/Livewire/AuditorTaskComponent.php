@@ -30,6 +30,7 @@ class AuditorTaskComponent extends Component
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
             ->where('ngapain', '=' ,'auditing')
+            ->where('users.is_active', 1)
             ->where('auditorlog.auditorId', '=', session('id'))
             ->groupBy( 'users.name', 'users.id', DB::raw("DATE(auditorlog.created_at)"))
             ->get();

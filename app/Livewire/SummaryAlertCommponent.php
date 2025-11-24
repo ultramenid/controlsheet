@@ -26,22 +26,24 @@ class SummaryAlertCommponent extends Component
     #[On('echo:auditor-data,UpdateAuditor')]
     public function getAlerts(){
         $query = DB::table('alerts')
+        ->join('users', 'users.id', '=', 'alerts.analisId')
         ->selectRaw("
-            COALESCE(auditorStatus, 'Pending') AS auditorStatus,
-            SUM(CASE WHEN region = 'Bali & Nusa Tenggara' THEN 1 ELSE 0 END) AS `Balinusatenggara`,
-            SUM(CASE WHEN region = 'Java' THEN 1 ELSE 0 END) AS `Java`,
-            SUM(CASE WHEN region = 'Kalimantan' THEN 1 ELSE 0 END) AS `Kalimantan`,
-            SUM(CASE WHEN region = 'Maluku' THEN 1 ELSE 0 END) AS `Maluku`,
-            SUM(CASE WHEN region = 'Papua' THEN 1 ELSE 0 END) AS `Papua`,
-            SUM(CASE WHEN region = 'Sulawesi' THEN 1 ELSE 0 END) AS `Sulawesi`,
-            SUM(CASE WHEN region = 'Sumatra' THEN 1 ELSE 0 END) AS `Sumatra`,
+            COALESCE(alerts.auditorStatus, 'Pending') AS auditorStatus,
+            SUM(CASE WHEN alerts.region = 'Bali & Nusa Tenggara' THEN 1 ELSE 0 END) AS `Balinusatenggara`,
+            SUM(CASE WHEN alerts.region = 'Java' THEN 1 ELSE 0 END) AS `Java`,
+            SUM(CASE WHEN alerts.region = 'Kalimantan' THEN 1 ELSE 0 END) AS `Kalimantan`,
+            SUM(CASE WHEN alerts.region = 'Maluku' THEN 1 ELSE 0 END) AS `Maluku`,
+            SUM(CASE WHEN alerts.region = 'Papua' THEN 1 ELSE 0 END) AS `Papua`,
+            SUM(CASE WHEN alerts.region = 'Sulawesi' THEN 1 ELSE 0 END) AS `Sulawesi`,
+            SUM(CASE WHEN alerts.region = 'Sumatra' THEN 1 ELSE 0 END) AS `Sumatra`,
             COUNT(*) AS `TOTAL`
         ")
-        ->when($this->yearAlert !== 'all', function ($query) {
-            $query->whereYear('detectionDate', $this->yearAlert);
+        ->when($this->yearAlert !== 'all', function ($q) {
+            return $q->whereYear('alerts.detectionDate', $this->yearAlert);
         })
-        ->where('isActive', 1)
-        ->groupBy('auditorStatus')
+        ->where('alerts.isActive', 1)
+        ->where('users.is_active', 1)      // 🔥 filter only active users
+        ->groupBy('alerts.auditorStatus')  // must match selectRaw field
         ->get();
 
     // Add Grand Total manually

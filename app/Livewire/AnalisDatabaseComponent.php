@@ -97,24 +97,37 @@ class AnalisDatabaseComponent extends Component
         $sc = '%' . $this->search . '%';
         try {
             $query = DB::table('alerts')
-                ->select('id', 'alertId', 'alertStatus', 'detectionDate', 'region', 'province', 'auditorStatus', 'auditorReason', 'created_at', 'platformStatus')
-                ->where('analisId', session('id'))
-                ->where('isActive', 1);
+                ->join('users', 'users.id', '=', 'alerts.analisId')
+                ->select(
+                    'alerts.id',
+                    'alerts.alertId',
+                    'alerts.alertStatus',
+                    'alerts.detectionDate',
+                    'alerts.region',
+                    'alerts.province',
+                    'alerts.auditorStatus',
+                    'alerts.auditorReason',
+                    'alerts.created_at',
+                    'alerts.platformStatus'
+                )
+                ->where('alerts.analisId', session('id'))
+                ->where('alerts.isActive', 1)
+                ->where('users.is_active', 1);
 
             if (!empty($this->search)) {
-                $query->where('alertId', $this->search);
+                $query->where('alerts.alertId', $this->search);
             }
 
             if ($this->selectStatus !== 'all') {
-                $query->where('auditorStatus', $this->selectStatus);
+                $query->where('alerts.auditorStatus', $this->selectStatus);
             }
 
             if ($this->yearAlert !== 'all') {
-                $query->whereYear('detectionDate', $this->yearAlert);
+                $query->whereYear('alerts.detectionDate', $this->yearAlert);
             }
 
-            return $query
-                ->paginate($this->paginate);
+            return $query->paginate($this->paginate);
+
         } catch (\Throwable $th) {
             return [];
         }

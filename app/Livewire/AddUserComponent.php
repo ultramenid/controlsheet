@@ -25,6 +25,7 @@ class AddUserComponent extends Component
                 'email' => $this->email,
                 'contact' => $this->contact,
                 'role_id' => $this->level,
+                'is_active' => 1,
                 'password' => Hash::make($this->password),
                 'created_at' => Carbon::now('Asia/Jakarta')
             ]);

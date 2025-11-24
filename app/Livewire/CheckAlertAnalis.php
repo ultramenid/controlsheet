@@ -40,31 +40,36 @@ class CheckAlertAnalis extends Component
     public function getAlerts(){
         $sc = '%' . $this->searchName . '%';
         $query = DB::table('alerts')
-                ->join('users', 'alerts.analisId', '=', 'users.id')
-                ->selectRaw("
-                    users.name,
-                    users.id as userId,
-                    alerts.analisId,
-                    SUM(CASE WHEN alerts.auditorStatus = 'approved' THEN 1 ELSE 0 END) AS approved,
-                    SUM(CASE WHEN alerts.auditorStatus = 'rejected' THEN 1 ELSE 0 END) AS rejected,
-                    SUM(CASE WHEN alerts.auditorStatus = 'duplicate' THEN 1 ELSE 0 END) AS duplicate,
-                    SUM(CASE WHEN alerts.auditorStatus = 'reexportimage' THEN 1 ELSE 0 END) AS reexportimage,
-                    SUM(CASE WHEN alerts.auditorStatus = 'reclassification' THEN 1 ELSE 0 END) AS reclassification,
-                    SUM(CASE WHEN alerts.auditorStatus = 'pre-approved' THEN 1 ELSE 0 END) AS preapproved,
-                    SUM(CASE WHEN alerts.auditorStatus = 'refined' THEN 1 ELSE 0 END) AS refined,
-                    SUM(CASE WHEN alerts.platformStatus = 'sccon' THEN 1 ELSE 0 END) AS sccon,
-                    SUM(CASE WHEN alerts.platformStatus = 'workspace' THEN 1 ELSE 0 END) AS workspace,
-                    COUNT(alerts.alertId) AS total
-                ")
-                ->where('name', 'like' , $sc)
-                ->when($this->yearAlert !== 'all', function ($query) {
-                    $query->whereYear('detectionDate', $this->yearAlert);
-                })
-                ->where('isActive', 1)
-                ->groupBy('alerts.analisId', 'users.name')
-                ->orderBy($this->dataField, $this->dataOrder)
-                ->get();
+            ->join('users', 'alerts.analisId', '=', 'users.id')
+            ->selectRaw("
+                users.name,
+                users.id as userId,
+                alerts.analisId,
+                SUM(CASE WHEN alerts.auditorStatus = 'approved' THEN 1 ELSE 0 END) AS approved,
+                SUM(CASE WHEN alerts.auditorStatus = 'rejected' THEN 1 ELSE 0 END) AS rejected,
+                SUM(CASE WHEN alerts.auditorStatus = 'duplicate' THEN 1 ELSE 0 END) AS duplicate,
+                SUM(CASE WHEN alerts.auditorStatus = 'reexportimage' THEN 1 ELSE 0 END) AS reexportimage,
+                SUM(CASE WHEN alerts.auditorStatus = 'reclassification' THEN 1 ELSE 0 END) AS reclassification,
+                SUM(CASE WHEN alerts.auditorStatus = 'pre-approved' THEN 1 ELSE 0 END) AS preapproved,
+                SUM(CASE WHEN alerts.auditorStatus = 'refined' THEN 1 ELSE 0 END) AS refined,
+                SUM(CASE WHEN alerts.platformStatus = 'sccon' THEN 1 ELSE 0 END) AS sccon,
+                SUM(CASE WHEN alerts.platformStatus = 'workspace' THEN 1 ELSE 0 END) AS workspace,
+                COUNT(alerts.alertId) AS total
+            ")
+            ->when(!empty($sc), function ($q) use ($sc) {
+                return $q->where('users.name', 'like', $sc);
+            })
+            ->when($this->yearAlert !== 'all', function ($q) {
+                return $q->whereYear('alerts.detectionDate', $this->yearAlert);
+            })
+            ->where('alerts.isActive', 1)     // alerts active flag
+            ->where('users.is_active', 1)     // user active flag
+            ->groupBy('alerts.analisId', 'users.name')
+            ->orderBy($this->dataField, $this->dataOrder)
+            ->get();
+
         return $query;
+
     }
     public function render()
     {
