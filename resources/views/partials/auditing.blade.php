@@ -30,6 +30,7 @@
                                 <select wire:ignore wire:model='alertStatus' class="w-full text-black appearance-none  border border-neutral-300 bg-gray-100 px-4 py-2 text-sm focus:outline-none">
                                     <option value="pre-approved">Pre-Approved</option>
                                     <option value="refined">Refined</option>
+                                    <option value="error">Error</option>
                                     <option value="rejected">Rejected</option>
                                     <option value="duplicate">duplicate</option>
                                     <option value="approved">Approved</option>
