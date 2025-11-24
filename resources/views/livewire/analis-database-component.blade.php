@@ -130,7 +130,7 @@
 
                             @else
                             <!-- wrapper centers the select visually; the inline style helps Safari center the selected option -->
-                            <div class="w-36 flex items-center justify-center relative">
+                            <div class="w-36 flex items-center justify-center relative" wire:key="alert-{{ $item->alertId }}">
                                 <select
                                 onchange="Livewire.dispatch('updateStatus', { id: {{ $item->alertId }}, status: this.value })"
                                 class="w-full text-center appearance-none px-2 py-1 text-xs rounded focus:outline-none

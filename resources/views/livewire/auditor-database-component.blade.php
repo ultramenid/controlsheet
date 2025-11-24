@@ -110,7 +110,7 @@
                     <td class="px-6 py-1 break-words text-xs  text-gray-700 hidden sm:table-cell">
                         <a >{{$item->province}}</a>
                     </td>
-                    <td class="px-6 py-1 break-words text-xs  text-gray-700">
+                    <td class="px-6 py-1 break-words text-xs  text-gray-700" wire:key="alert-{{ $item->alertId }}">
                         @if (in_array($item->auditorStatus, ['pre-approved', 'refined', 'error']))
                             <a  wire:click="showAudit({{ $item->alertId }})" @click.away="open = false" class="inline-block text-center w-28 appearance-none rounded-xs
                                 @if($item->auditorStatus == 'pre-approved') bg-blue-100 text-gray-700 cursor-pointer

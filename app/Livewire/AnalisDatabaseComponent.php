@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\UpdateAnalis;
 use App\Events\UpdateAuditor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -86,6 +87,8 @@ class AnalisDatabaseComponent extends Component
             'auditorStatus' => $status,
             'updated_at' => Carbon::now('Asia/Jakarta')
         ]);
+        event(new UpdateAnalis);
+        $this->resetPage();
         Toaster::success('Succesfully change platform status');
      }
 
