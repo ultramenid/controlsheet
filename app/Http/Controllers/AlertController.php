@@ -35,7 +35,7 @@ class AlertController extends Controller
     }
 
     public function checkAnalis($id){
-        return DB::table('alerts')->where('alertId', $id)->first();
+        return DB::table('alerts')->where('alertId', $id)->where('is_active', 1)->first();
     }
 
     public function editalert($id){
