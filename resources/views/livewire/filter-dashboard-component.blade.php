@@ -30,7 +30,7 @@
 
     </script>
 </div>
-<div wire:loading class="flex w-full justify-center text-center bg-red-300 py-1 animate-pulse text-xs px-4 text-white mb-4" >loading. . .</div>
+{{-- <div wire:loading class="flex w-full justify-center text-center bg-red-300 py-1 animate-pulse text-xs px-4 text-white mb-4" >loading. . .</div> --}}
 
 </div>
 
