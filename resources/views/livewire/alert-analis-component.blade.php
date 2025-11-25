@@ -66,6 +66,7 @@
         @include('partials.deleterAlert')
     </div>
     <div class="mt-4">
+        <div wire:loading class="flex w-full justify-center text-center bg-red-300 py-1 animate-pulse text-xs px-4 text-white" >loading. . .</div>
         <table class="w-full divide-y divide-gray-200  rounded-sm  border border-gray-100">
             <thead class=" text-xs">
                 <tr class="">
