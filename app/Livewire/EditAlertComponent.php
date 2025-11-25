@@ -17,7 +17,7 @@ class EditAlertComponent extends Component
     public $region = 'Please select', $province = 'Please select', $idAlert, $platformStatus ;
 
     public function getData(){
-        return  DB::table('alerts')->where('alertId', $this->idAlert)->first();
+        return  DB::table('alerts')->where('alertId', $this->idAlert)->where('isActive', 1)->first();
     }
     public function mount($id){
         $this->idAlert = $id;
