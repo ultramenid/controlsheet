@@ -89,7 +89,6 @@ class TableAnalisis extends Component
                 'alerts.region',
                 'alerts.province',
                 'alerts.auditorStatus',
-                'alerts.auditorReason',
                 'alerts.created_at'
             )
             ->where('alerts.analisId', session('id'))
