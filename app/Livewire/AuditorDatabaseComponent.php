@@ -175,6 +175,16 @@ class AuditorDatabaseComponent extends Component
         $sc = '%'.$this->searchId.'%';
         try {
             $query = DB::table('alerts')
+            ->select(
+                'alerts.id',
+                'alerts.alertId',
+                'alerts.detectionDate',
+                'alerts.region',
+                'alerts.province',
+                'alerts.auditorStatus',
+                'alerts.created_at',
+                'alerts.platformStatus'
+            )
             ->join('users', 'users.id', '=', 'alerts.analisId')
             ->where('alerts.isActive', 1)
             ->where('users.is_active', 1);

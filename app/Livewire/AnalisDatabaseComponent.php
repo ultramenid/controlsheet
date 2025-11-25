@@ -101,12 +101,10 @@ class AnalisDatabaseComponent extends Component
                 ->select(
                     'alerts.id',
                     'alerts.alertId',
-                    'alerts.alertStatus',
                     'alerts.detectionDate',
                     'alerts.region',
                     'alerts.province',
                     'alerts.auditorStatus',
-                    'alerts.auditorReason',
                     'alerts.created_at',
                     'alerts.platformStatus'
                 )

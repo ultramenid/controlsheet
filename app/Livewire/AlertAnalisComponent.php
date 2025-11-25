@@ -91,6 +91,16 @@ class AlertAnalisComponent extends Component
         try {
             $query = DB::table('alerts')
                 ->join('users', 'users.id', '=', 'alerts.analisId')
+                ->select(
+                    'alerts.id',
+                    'alerts.alertId',
+                    'alerts.detectionDate',
+                    'alerts.region',
+                    'alerts.province',
+                    'alerts.auditorStatus',
+                    'alerts.created_at',
+                    'alerts.platformStatus'
+                )
                 ->where('alerts.analisId', $this->analisId)
                 ->where('alerts.isActive', 1)
                 ->where('users.is_active', 1);
