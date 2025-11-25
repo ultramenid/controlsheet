@@ -33,7 +33,7 @@ class TableAnalisis extends Component
     public function showReason($id){
         $this->isReason = true;
         //load data to delete function
-        $data = DB::table('alerts')->where('id', $id)->first();
+        $data = DB::table('alerts')->where('id', $id)->where('isActive', 1)->first();
         $this->alertId = $data->alertId;
         $this->alertStatus = $data->auditorStatus;
         $this->alertReason = $data->auditorReason;
@@ -51,7 +51,9 @@ class TableAnalisis extends Component
 
 
         event(new UpdateAuditor);
-        DB::table('alerts')->where('alertId', $id)->update([
+        DB::table('alerts')
+        ->where('isActive', 1)
+        ->where('alertId', $id)->update([
             'auditorStatus' => $newStatus,
             'auditorReason' => null,
             'updated_at' => Carbon::now('Asia/Jakarta')

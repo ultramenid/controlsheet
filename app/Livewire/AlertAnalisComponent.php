@@ -38,13 +38,14 @@ class AlertAnalisComponent extends Component
     }
     public function deleteAlert($alertId){
         //load data to delete function
-        $dataDelete = DB::table('alerts')->where('alertId', $alertId)->first();
+        $dataDelete = DB::table('alerts')->where('alertId', $alertId)->where('isActive', 1)->first();
         $this->alertDeleteId = $dataDelete->alertId;
         $this->deleter = true;
     }
     public function deleting($alertId){
         DB::table('alerts')
         ->where('alertId', $alertId)
+        ->where('isActive', 1)
         ->delete();
 
         DB::table('auditorlog')->insert([
@@ -145,7 +146,10 @@ class AlertAnalisComponent extends Component
     public function auditing($alertId){
         event(new UpdateAnalis);
         if($this->manualValidation()){
-            DB::table('alerts')->where('alertId', $alertId)->update([
+            DB::table('alerts')
+            ->where('isActive', 1)
+            ->where('alertId', $alertId)
+            ->update([
                 'alertStatus' => $this->checkAlertStatus(),
                 'auditorStatus' => $this->alertStatus,
                 'auditorReason' => $this->alertReason,
@@ -167,6 +171,7 @@ class AlertAnalisComponent extends Component
         $data = DB::table('alerts')
         ->join('users', 'analisId', '=', 'users.id')
         ->select('alerts.*', 'users.*')
+        ->where('alerts.isActive', 1)
         ->where('alertId', $id)->first();
         $this->alertId = $data->alertId;
         $this->analis = $data->name;

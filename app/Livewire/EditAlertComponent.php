@@ -128,6 +128,7 @@ class EditAlertComponent extends Component
         if($this->manualValidation()){
             DB::table('alerts')
             ->where('alertId', $this->idAlert)
+            ->where('isActive', 1)
             ->update([
                 'observation' => $this->observation,
                 'alertStatus' => $this->alertStatus,

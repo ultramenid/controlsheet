@@ -100,7 +100,7 @@ class AddAlertComponent extends Component
     }
 
     public function checkAlert(){
-        return DB::table('alerts')->where('alertId', $this->alertId)->first();
+        return DB::table('alerts')->where('alertId', $this->alertId)->where('isActive', 1)->first();
     }
 
     public function checkAlertStatus(){

@@ -78,6 +78,7 @@ class AuditorSummaryComponent extends Component
         // if the auditorStatus == null return 'Pending'
         $status = DB::table('alerts')
             ->where('alertId', $alertId)
+            ->where('isActive', 1)
             ->select('auditorStatus')
             ->first();
         if($status->auditorStatus == null){
@@ -90,6 +91,7 @@ class AuditorSummaryComponent extends Component
         // dd($this->getStatus($this->alertCodeValidator));
         $find = DB::table('alerts')
             ->where('alertId', $this->alertCodeValidator)
+            ->where('isActive', 1)
             ->join('users', 'users.id', '=', 'alerts.analisId')
             ->select('users.name as auditorName', 'users.id as auditorId')
             ->first();
