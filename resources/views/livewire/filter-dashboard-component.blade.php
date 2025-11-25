@@ -1,4 +1,5 @@
-<div class="px-4 py-4 border-gray-100 border mb-4">
+<div>
+<div class="px-4 py-4 border-gray-100 border ">
     <a class="text-sm">Filter</a>
     <div class="flex gap-4 mt-2">
         <div class="sm:w-36 w-full relative flex  flex-col  text-neutral-600 dark:text-neutral-300">
@@ -13,6 +14,7 @@
             Submit
         </button>
     </div>
+
     <script>
         let dateDropdown = document.getElementById('date-dropdown');
 
@@ -28,3 +30,7 @@
 
     </script>
 </div>
+<div wire:loading class="flex w-full justify-center text-center bg-red-300 py-1 animate-pulse text-xs px-4 text-white mb-4" >loading. . .</div>
+
+</div>
+
