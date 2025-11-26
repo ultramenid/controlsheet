@@ -26,7 +26,7 @@ class AuditorTaskComponent extends Component
                 'users.name as auditorName',
                 'users.id as auditorId',
                 DB::raw("DATE(auditorlog.created_at) as d"),
-                DB::raw("COUNT(auditorlog.alertId) as total")
+                DB::raw("COUNT(DISTINCT auditorlog.alertId) as total")
             )
             ->whereBetween(DB::raw("DATE(auditorlog.created_at)"), [$this->startDate, $this->endDate])
             ->where('ngapain', '=' ,'auditing')
