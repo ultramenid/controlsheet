@@ -16,7 +16,7 @@
               <th wire:click='sortingField("reclassification")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">reclassification</th>
               <th wire:click='sortingField("rejected")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Rejected</th>
               <th wire:click='sortingField("duplicate")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Duplicate</th>
-              <th wire:click='sortingField("pre-approved")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">pre-approved</th>
+              <th wire:click='sortingField("preapproved")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">pre-approved</th>
               <th wire:click='sortingField("refined")' class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">refined</th>
               <th class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Sccon</th>
               <th class="cursor-pointer border-b border-gray-300 px-2 py-2 capitalize">Workspace</th>
